@@ -1,0 +1,223 @@
+<div class="header-div">
+    <div class="row">
+      <img src="/assets/images/player-iconpage.png" width="40" />
+      <h5 style="padding-top: 15px;">Edit Player </h5>
+    </div>
+  </div>
+  <div class="main-panel">
+    <form name="addPlayer" #dataForm="ngForm" name="playerForm">
+      <div class="row">
+          <div class="col-md-6">
+              <div class="form-group">
+                <div class="row">
+                  <label class="col-sm-3 col-md-3 control-label">UID</label>
+                  <div class="col-sm-9 col-md-9">
+                    <input type="text" class="form-control guid_input" id="inputEmail3" 
+                           placeholder="UID" [(ngModel)]="playerData._id" name="guid" readonly/>
+                  </div>              
+                </div>
+              </div>
+  
+              <div class="form-group">
+                <div class="row">
+                  <label for="inputEmail3" class="col-sm-3 col-md-3 control-label">Player IP</label>
+                  <div class="col-sm-9 col-md-9">
+                    <input type="text" class="form-control guid_input" id="inputEmail3" 
+                           placeholder="Playerip" [(ngModel)]="playerData.playerip" name="playerip" readonly/>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="row">
+                  <label for="inputEmail3" class="col-sm-3 col-md-3 control-label">Player Code<em>*</em></label>
+                  <div class="col-sm-9 col-md-9">
+                    <input type="text" class="form-control"
+                          placeholder="Player Code" [(ngModel)]="playerData.player_code" 
+                          name="player_code" required #playerCode="ngModel"/>
+                    <div *ngIf="playerCode.invalid && (playerCode.dirty || playerCode.touched)"
+                          class="alert alert-danger">
+                      <div *ngIf="playerCode.errors.required">
+                        The player Code is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="form-group">
+                <div class="row">
+                  <label for="inputEmail3" class="col-sm-3 col-md-3 control-label">Player Number/Name<em>*</em></label>
+                  <div class="col-sm-9 col-md-9">
+                    <input type="text" class="form-control"  
+                          placeholder="Player number/name" [(ngModel)]="playerData.player_number" 
+                          name="player_number" required #playerNumandName="ngModel" />
+                    <div *ngIf="playerNumandName.invalid && (playerNumandName.dirty || playerNumandName.touched)"
+                          class="alert alert-danger">
+                      <div *ngIf="playerNumandName.errors.required">
+                        The player Number and Name is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="form-group">
+              <div class="row">
+                <label for="inputPassword3" class="col-sm-3 col-md-3 control-label">Group<em>*</em></label>
+                <div class="col-sm-9 col-md-9">
+                  <select class="form-control" [(ngModel)]="playerData.group_id" name="groupID" required #groupID="ngModel">
+                    <option *ngFor="let group of groups" value="{{group._id}}" >{{group.group_name}}</option>
+                  </select>
+                  <div *ngIf="groupID.invalid && (groupID.dirty || groupID.touched)"
+                        class="alert alert-danger">
+                    <div *ngIf="groupID.errors.required">
+                      The Group is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <label for="inputPassword3" class="col-sm-3 col-md-3 control-label">Type</label>
+                <div class="col-sm-9 col-md-9">
+                  <select class="form-control" [(ngModel)]="playerData.type" name="groupType" required >
+                    <option *ngFor="let type of TypeList" value="{{type.name}}" >{{type.name}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <label for="inputPassword3" class="col-sm-3 col-md-3 control-label">Map Rotation<em>*</em></label>
+                <div class="col-sm-9 col-md-9">
+                  <select class="form-control" [(ngModel)]="playerData.map_rotate" name="mapRotate" required #mapRotate="ngModel">
+                    <option *ngFor="let rotate of MapRotation" value="{{rotate.name}}" >{{rotate.name}}</option>
+                  </select>
+                  <div *ngIf="mapRotate.invalid && (mapRotate.dirty || mapRotate.touched)"
+                        class="alert alert-danger">
+                    <div *ngIf="mapRotate.errors.required">
+                      The Map Rotation is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <label for="inputPassword3" class="col-sm-3 col-md-3 control-label">Screen Orientation<em>*</em></label>
+                <div class="col-sm-9 col-md-9">
+                  <select class="form-control" [(ngModel)]="playerData.orientation" name="mapOrientation" required #mapOrientation="ngModel">
+                    <option *ngFor="let orient of ScreenOrientation" value="{{orient.name}}" >{{orient.name}}</option>
+                  </select>
+                  <div *ngIf="mapOrientation.invalid && (mapOrientation.dirty || mapOrientation.touched)"
+                        class="alert alert-danger">
+                    <div *ngIf="mapOrientation.errors.required">
+                      The Screen Orientation is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                  <label class="col-sm-3 col-md-3 control-label">Tags</label>
+                  <div class="col-sm-9 col-md-9">
+                    <tags-input class="form-control input-lg" [(ngModel)]="playerData.tags" name="tags"></tags-input>              
+                  </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <label for="inputPassword3" class="col-6 col-sm-6 col-md-6 control-label">Smart Assistant Interface </label>
+                <div class="col-6 col-sm-6 col-md-6">
+                    <div class="col-md-9">              
+                        <mat-slide-toggle color="primary" [(ngModel)]="playerData.assistant" name="assistant">
+                          {{playerData.assistant?'Enabled':'Disabled'}}
+                        </mat-slide-toggle>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="table-custom table-responsive tbl-left">
+                <div class="table-editable table-custom table-new2 table-responsive">
+                  <table id="tableNameValue" class="table table-hover table-bordered col-sm-12 table-editable">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Value</th>
+                        <th (click)="AppendNameValue()">
+                          <span class="table-add glyphicon glyphicon-plus">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                          </span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>                      
+                      <tr *ngFor="let PLayername of PlayerNameList; let i=index" data-id="{{PLayername.id}}">
+                        <td ><div class="form-control"><span contenteditable="true" >{{PLayername.name}}</span></div></td>
+                        <td><div class="form-control"><span contenteditable="true" >{{PLayername.value}}</span></div></td>
+                        <td colspan="2">
+                            <span (click)="RemoveNameValue(i)" class="table-remove glyphicon glyphicon-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>                
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <label for="inputPassword3" class="col-md-1 control-label">Map<em>*</em></label>
+                <div class="col-md-11">
+                  <!-- <div class="mainContainer" style="background-image: url('{{MapType}}');">&nbsp;</div> -->
+                  <div id="imageappend" align="center ">
+                    <img  id="image" src="{{MapType}}" width="100%" (load)="initaiteMap()" /><br/>
+                  </div>
+                  <input type="hidden" name="latitude" id="playermapX" [(ngModel)]="playerData.latitude" >
+                  <input type="hidden" name="longitude" id="playermapY" [(ngModel)]="playerData.longitude">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top:20px;">
+                <div class="row">
+                  <label for="status" class="col-3 col-sm-3 col-md-3 control-label">Status<em>*</em></label>
+                  <div class="col-9 col-sm-9 col-md-9">              
+                    <mat-slide-toggle color="primary" [(ngModel)]="playerData.status" name="status">
+                      {{playerData.status?'Enabled':'Disabled'}}
+                    </mat-slide-toggle>
+                  </div>
+                </div>
+              </div>
+
+              <div class="spacebottom"></div>
+              <div class="form-group">
+                <div class="row">
+                  <label class="col-md-3 control-label"></label>
+                  <div class="col-md-9">
+                      <button type="button" (click)="save()" class="btn btn-info btn-save" [disabled]="!dataForm.form.valid">Save</button>
+                      <a [routerLink]="['/customer/home', { outlets: { popup: ['players'] } }]" class="btn btn-info btn-cancel">Cancel</a>
+                  </div>
+                </div>
+              </div>
+
+          </div>
+        </div>
+    </div>
+  </form>
+</div>
+  
+    

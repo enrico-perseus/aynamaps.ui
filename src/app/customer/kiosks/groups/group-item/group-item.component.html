@@ -1,0 +1,30 @@
+<ng-template [ngIf]="group.isEdit==true" [ngIfElse]="staticRow">
+    <td>{{group._id}}</td>
+    <td>
+      <input style="text-align:center;" type="text" class="form-control" [(ngModel)]="group.group_name" />
+    </td>
+    <td>0</td>
+<!--     <td>
+        <select data-tabullet-map="status" name="Status" style="text-align-last: center;" class="form-control" [(ngModel)]="group.status">
+          <option value="Enable">Enabled</option>
+          <option value="Disable">Disabled</option>
+        </select>
+    </td> -->
+    <td>{{group.createdBy.email}}</td>    
+    <td><button class="btn btn-success save_group_info" (click)="saveGroup()" >Save</button>
+    </td>
+</ng-template>
+
+<ng-template #staticRow>
+    <td>{{group._id}}</td>
+    <td>
+      {{group.group_name}}
+    </td>
+    <td>{{group.usagesLength}}</td>
+<!--     <td>
+        <span class="{{group.status == 'Enable'?'Enable':'Disable'}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    </td> -->
+    <td>{{group.createdBy.email}}</td>
+    
+    <td></td>
+</ng-template>

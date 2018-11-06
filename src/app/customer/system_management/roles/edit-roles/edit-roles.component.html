@@ -1,0 +1,133 @@
+
+<div class="header-div">Edit Role</div>
+<div class="main-panel">
+  <form id="building-form" #dataForm="ngForm" (submit)="save()" name="buildingForm">
+    <div class="row">
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-3 col-md-2 control-label">Role Name<em>*</em></label>
+            <div class="col-sm-9 col-md-6">
+              <input type="text" class="form-control" id="name"
+                     placeholder="Name" [(ngModel)]="role.name"
+                     name="name" required #name="ngModel">
+              <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                   class="alert alert-danger">
+                <div *ngIf="name.errors.required">
+                  The name is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+
+        <div class="form-group">
+            <div class="row">
+                <label class="col-md-2 control-label">Role Rivileges<em>*</em></label>            
+                <div class="col-md-6">
+                    <div class="tablenew" style="margin-left: 0px">
+                        <table class="">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Scope
+                                        </th>
+                                        <th>
+                                            View
+                                        </th>
+                                        <th>
+                                            Manage
+                                        </th>
+                                        <th>
+                                            Delete
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="active">
+                                        <td>
+                                            Content Management
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" [(ngModel)]="role.cm_v" (click)="is_cm_v()" name="cm_v"  class="content_manage" />
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" [(ngModel)]="role.cm_m" (click)="is_cm_m()" name="cm_m"  class="content_manage"/>
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" [(ngModel)]="role.cm_d" name="cm_d" class="content_manage"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Network Management
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" [(ngModel)]="role.nm_v" (click)="is_nm_v()" name="nm_v" class="network_manage"/>
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" [(ngModel)]="role.nm_m" (click)="is_nm_m()" name="nm_m" class="network_manage"/>
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" [(ngModel)]="role.nm_d" name="nm_d" class="network_manage"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="active">
+                                        <td>
+                                            Reports
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" [(ngModel)]="role.rp_v" name="rp_v" class="report_manage"/>
+                                        </td>
+                                        <td>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            System Management
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" [(ngModel)]="role.sm_v" (click)="is_sm_v()" name="sm_v" class="system_manage"/>
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" [(ngModel)]="role.sm_m" (click)="is_sm_m()" name="sm_m" class="system_manage"/>
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" [(ngModel)]="role.sm_d" name="sm_d" class="system_manage"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    <!--onValueChanged: checkBoxToggled-->
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-top:20px;">
+            <div class="row">
+              <label for="status" class="col-3 col-sm-3 col-md-2 control-label">Status<em>*</em></label>
+              <div class="col-9 col-sm-9 col-md-6">              
+                <mat-slide-toggle color="primary" [(ngModel)]="role.status" name="status">
+                  {{role.status?'Enabled':'Disabled'}}
+                </mat-slide-toggle>
+              </div>
+            </div>
+          </div>
+          
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3">&nbsp;</div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-info btn-save" [disabled]="!dataForm.form.valid">Save</button>
+                    <button type="button" class="btn btn-info btn-cancel" data-dismiss="modal" (click)="GetRoleList()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>        
+  </form>
+</div>

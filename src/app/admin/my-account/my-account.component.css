@@ -1,0 +1,58 @@
+.all-page-content {
+    background: #FFF;
+    margin: 20px 0px 0px;
+    padding: 20px 15px;
+   display: inline-block;
+    width: 100%;
+}
+
+.col-md-3 {
+    float: left;
+}
+
+.col-md-9 {
+    float: left;
+}
+
+.col-md-6 {
+    float: left;
+}
+
+.remove-btn22 {
+    width: auto;
+}
+
+.control-label {
+    padding-top: 7px;
+    font-weight: 600;
+  }
+  
+
+.profile-pic {
+    max-width: 170px !important;
+    height: 170px !important;
+    display: table;
+    margin: 0px auto 30px;
+    border-radius: 100%;
+    padding: 3px 0px;
+    width: 100%;
+}
+
+.remove-button {
+    border: 1px solid red;
+    border-radius: 60px;
+    background: red;
+    color: #FFF;
+    padding: 0px 0px;
+    font-size: 18px;
+    width: 49% !important;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 0px;
+    height: 40px;
+    vertical-align: middle;
+    position: relative;
+    left: 0px;
+    line-height: 36px;
+    float: right;
+}

@@ -1,0 +1,125 @@
+<div class="col-md-12 full-width-colum-ber-buildingpag" style="padding-left:0px !important;padding-right:0px !important;">
+    <div class="top-part" style="margin: 0px !important; background-color: #383838;background-image:none">
+        <app-customer-common-chart-block></app-customer-common-chart-block>
+    </div>
+    <div id="myChart" style="overflow:visible !important;">
+        <div class="mycharttitle">
+            <h5>Total Clicks Per Week</h5>
+        </div>
+        <div class="mychartdatetime">
+            <div class="date-form">
+                <form class="form-inline" name="SearchFilterGraph" novalidate>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-3 col-sm-3 col-md-3">From:</label>
+                                    <div class="col-9 col-sm-9 col-md-9">
+                                        <dx-date-box type="date" #validityStartDate="ngModel"
+                                                    name="validityStartDate" id="validity-start-date" class="form-control" 
+                                                    [max]="customerData.validity_end_date"
+                                                    [(ngModel)]="customerData.validity_start_date" (onValueChanged)="validityStartDateChanged()"></dx-date-box>
+                                            <div *ngIf="validityStartDate.invalid && (validityStartDate.dirty || validityStartDate.touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="validityStartDate.errors.required">
+                                                The Validity start date is required.
+                                            </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">                            
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-3 col-sm-3 col-md-3">To:</label>
+                                    <div class="col-9 col-sm-9 col-md-9">
+                                        <dx-date-box type="date" #validityEndDate="ngModel"
+                                                    [min]="customerData.validity_start_date"                                              
+                                                    name="validityEndDate" id="validity-end-date" class="form-control"
+                                                    [(ngModel)]="customerData.validity_end_date"></dx-date-box>
+                                        <div *ngIf="validityEndDate.invalid && (validityEndDate.dirty || validityEndDate.touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="validityEndDate.errors.required">
+                                            The Validity end date is required.
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="text-align:center">
+                            <button type="button" (click)="filterGraph()" class="col-4 col-sm-4 okbtn" >Ok</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="dx-viewport1 demo-container">            
+            <dx-chart [dataSource]="dataSource">
+                <dxo-common-series-settings
+                    argumentField="date"
+                    type="area">
+                </dxo-common-series-settings>
+                <dxi-series valueField="yield" name="Female"></dxi-series>
+                <dxo-export [enabled]="true"></dxo-export>
+            </dx-chart>
+            </div>
+    </div>
+</div>
+<div class="row">
+        <div class="col-md-4">
+            <div class="buttom-upper-footer graph-spacing">
+                <div class="top-destination">
+                    <h5>Top 5 Destination</h5>
+                    <table>
+                        <tbody>
+                            <tr *ngFor="let Top of topDestinations">
+                                <td style="text-align:left">{{Top.destination_name[0].name}}</td>
+                                <td ng-init='rand = getRandomSpanTop($index)'>{{ Top.rand }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="buttom-upper-footer">
+                <div class="top-destination">
+                    <h5>Bottom 5 Destination</h5>
+                    <table>
+                        <tbody>
+                            <tr *ngFor="let Bottom of bottomDestinations">
+                                <td style="text-align:left">{{Bottom.destination_name[0].name}}</td>
+                                <td ng-init='rand = getRandomSpanBottom($index)'>{{ Bottom.rand }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="col-md-4">
+            <div class="buttom-upper-footer">
+                <div class="top-destination">
+                    <h5>Segments</h5>
+                    <br>
+                    <dx-pie-chart
+                        id="pie"
+                        type="doughnut"
+                        palette="Soft Pastel"
+                        [dataSource]="populationByRegions">                                               
+                        <dxo-legend
+                            [margin]="0"
+                            horizontalAlignment="right"
+                            verticalAlignment="top"></dxo-legend>
+                        <dxi-series                            
+                            argumentField="region"
+                            valueField="val">                            
+                        </dxi-series>
+                    </dx-pie-chart>
+                </div>
+            </div>
+    </div>
+</div>

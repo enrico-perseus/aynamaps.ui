@@ -1,0 +1,187 @@
+
+<div class="header-div">Edit Time Slots</div>
+<div class="main-panel">
+  <form id="building-form" #dataForm="ngForm" (submit)="save()" name="buildingForm">
+    <div class="row">
+        <div class="col-md-6">
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-3 col-md-3 control-label">Name<em>*</em></label>
+            <div class="col-sm-9 col-md-9">
+              <input type="text" class="form-control" id="name"
+                     placeholder="Name" [(ngModel)]="timeslot.name"
+                     name="name" required #name="ngModel">
+              <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                   class="alert alert-danger">
+                <div *ngIf="name.errors.required">
+                  The name is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+
+        <div class="form-group">
+            <div class="row">
+                <label class="col-sm-3 col-md-3 control-label">Repeat<em>*</em></label>            
+                <div class="col-sm-9 col-md-9">
+                    <div class="dx-fieldset">
+                        <div class="row">                
+                            <div class="col-sm-3 col-md-3" style="padding-left: 0px">
+                                <div class="dx-field">                            
+                                    <div class="dx-field-value">
+                                        <dx-check-box [(value)]="timeslot.is_all_day" (click)="is_all_day()" text="Always"></dx-check-box>
+                                    </div>                                    
+                                </div>                            
+                            </div>
+
+                            <div class="col-sm-3 col-md-3" style="padding-left: 0px">
+                                <div class="dx-field">
+                                    <div class="dx-field-value">
+                                        <dx-check-box [(value)]="timeslot.sunday" (click)="checkday('sunday')" text="Sunday"></dx-check-box>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3 col-md-3" style="padding-left: 0px">
+                                <div class="dx-field">                            
+                                    <div class="dx-field-value">
+                                        <dx-check-box [(value)]="timeslot.monday" (click)="checkday('monday')" text="Monday"></dx-check-box>
+                                    </div>                                    
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3 col-md-3" style="padding-left: 0px">
+                                <div class="dx-field">                            
+                                    <div class="dx-field-value">
+                                        <dx-check-box [(value)]="timeslot.tuesday" (click)="checkday('tuesday')" text="Tuesday"></dx-check-box>
+                                    </div>
+                                </div>
+                            </div>                    
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3 col-md-3" style="padding-left: 0px">
+                                <div class="dx-field">                            
+                                    <div class="dx-field-value">
+                                        <dx-check-box [(value)]="timeslot.wednesday" (click)="checkday('wednesday')" text="Wednesday"></dx-check-box>
+                                    </div>                                    
+                                </div>
+                            </div>
+                                
+                            <div class="col-sm-3 col-md-3" style="padding-left: 0px">
+                                <div class="dx-field">                            
+                                    <div class="dx-field-value">
+                                        <dx-check-box [(value)]="timeslot.thursday" (click)="checkday('thursday')" text="Thursday"></dx-check-box>
+                                    </div>                                    
+                                </div>
+                            </div>
+                                
+                            <div class="col-sm-3 col-md-3" style="padding-left: 0px">
+                                <div class="dx-field">                            
+                                    <div class="dx-field-value">
+                                        <dx-check-box [(value)]="timeslot.friday" (click)="checkday('friday')" text="Friday"></dx-check-box>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-3 col-md-3" style="padding-left: 0px">
+                                <div class="dx-field">                            
+                                    <div class="dx-field-value">
+                                        <dx-check-box [(value)]="timeslot.saturday" (click)="checkday('saturday')" text="Saturday"></dx-check-box>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <label class="col-sm-3 col-md-2 control-label">From<em>*</em></label>
+                <div class="col-sm-9 col-md-4" id="timepair">
+                    <label>
+                        <input [owlDateTimeTrigger]="startTime"
+                        id="startTime"
+                        name="startTime"
+                        [(ngModel)]="timeslot.start_time"
+                        [(value)]="timeslot.start_time" [owlDateTime]="startTime">                            
+                        <owl-date-time [pickerType]="'timer'" #startTime></owl-date-time>
+                    </label>
+                </div>
+                <div class="col-sm-3 col-md-2 control-label">To<em>*</em></div>
+                <div class="col-sm-9 col-md-4">
+                    <label>
+                        <input [owlDateTimeTrigger]="endTime"
+                        id="endTime"
+                        name="endTime"
+                        [(ngModel)]="timeslot.end_time"
+                        [(value)]="timeslot.end_time" [owlDateTime]="endTime">                                    
+                        <owl-date-time [pickerType]="'timer'" #endTime></owl-date-time>
+                    </label>
+                </div>                
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label class="col-sm-3 col-md-3">&nbsp;</label>
+                <div class="col-sm-9 col-md-9">
+                    <div class="dx-fieldset">
+                        <div class="row">                
+                            <div class="col-md-4" style="padding-left: 0px">
+                                <div class="dx-field">                            
+                                    <div class="dx-field-value">
+                                        <dx-check-box [(value)]="is_no_end_date"
+                                         text="No End Date"></dx-check-box>
+                                    </div>                                    
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label class="col-sm-3 col-md-2 control-label">Start Date <em>*</em></label>
+                <div class="col-sm-9 col-md-4" id="timepair">
+                    <label>
+                        <input [owlDateTimeTrigger]="startDate"
+                        id="startDate"
+                        name="startDate"
+                        [(ngModel)]="timeslot.start_date"
+                        [(value)]="timeslot.start_date" [owlDateTime]="startDate">                            
+                        <owl-date-time [pickerType]="'calendar'" #startDate></owl-date-time>
+                    </label>
+                </div>                
+                <div class="col-sm-3 col-md-2 control-label" *ngIf="!is_no_end_date">
+                    End Date<em>*</em>
+                </div>
+                <div class="col-sm-9 col-md-4" id="timepair" *ngIf="!is_no_end_date">
+                    <label>
+                        <input [owlDateTimeTrigger]="endDate"
+                        id="endDate"
+                        name="endDate" 
+                        [(ngModel)]="timeslot.end_date"
+                        [(value)]="timeslot.end_date" [owlDateTime]="endDate">                            
+                        <owl-date-time [pickerType]="'calendar'" #endDate></owl-date-time>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3">&nbsp;</div>
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-info btn-save" [disabled]="!dataForm.form.valid">Save</button>
+                    <button type="button" class="btn btn-info btn-cancel" data-dismiss="modal" (click)="GetTimeSlotList()">Cancel</button>
+                </div>
+            </div>
+        </div>
+        </div>      
+    </div>
+  </form>
+</div>

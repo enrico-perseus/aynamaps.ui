@@ -1,0 +1,128 @@
+<div class="header-div">ADD/Edit Beacons</div>
+<div class="main-panel">
+  <form id="building-form" #dataForm="ngForm" name="buildingForm">
+    <div class="row">
+      <div class="col-md-6">
+
+          <div class="form-group" *ngIf="!isAdd">
+              <div class="row">
+                <label for="inputEmail3" class="col-sm-3 col-md-3 control-label">UID</label>
+                <div class="col-sm-9 col-md-9">
+                    <input type="text" class="form-control guid_input" id="inputEmail3" placeholder="UID"
+                     readonly [(ngModel)]="beaconData._id" name='guid'/>
+                </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <div class="row">
+                <label for="account-name" class="col-sm-3 col-md-3 control-label">Beacon Code<em>*</em></label>
+                <div class="col-sm-9 col-md-9">
+                  <input type="text" class="form-control" id="beacon-id"
+                         placeholder="Beacon Code" [(ngModel)]="beaconData.beacon_code"
+                         name="beaconCode" required #beaconCode="ngModel">
+                  <div *ngIf="beaconCode.invalid && (beaconCode.dirty || beaconCode.touched)"
+                       class="alert alert-danger">
+                    <div *ngIf="beaconCode.errors.required">
+                      The Beacon Code is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <div class="form-group">
+              <div class="row">
+                <label for="account-type" class="col-sm-3 col-md-3 control-label">Type<em>*</em></label>
+                <div class="col-sm-9 col-md-9">
+                  <select class="form-control" id="type" name="type" [(ngModel)]="beaconData.type" required #type="ngModel" >
+                    <option *ngFor="let type of BeaconType" value="{{type.name}}">{{type.name}}</option>
+                  </select>
+                  <div *ngIf="type.invalid && (type.dirty || type.touched)"
+                       class="alert alert-danger">
+                    <div *ngIf="type.errors.required">
+                      The Type is required.
+                    </div>
+                  </div>
+                </div>            
+              </div>
+            </div>
+    
+            <div class="form-group">
+              <div class="row">
+                <label for="account-name" class="col-sm-3 col-md-3 control-label">Brand</label>
+                <div class="col-sm-9 col-md-9">
+                  <input type="text" class="form-control" id="brand"
+                         placeholder="Brand" [(ngModel)]="beaconData.brand"
+                         name="brand" #brand="ngModel">
+                </div>
+              </div>
+            </div>
+    
+            <div class="form-group">
+              <div class="row">
+                <label for="account-name" class="col-sm-3 col-md-3 control-label">Mac Address<em>*</em></label>
+                <div class="col-sm-9 col-md-9">
+                  <input type="text" class="form-control" id="mac"
+                         placeholder="Mac Address" [(ngModel)]="beaconData.mac"
+                         name="mac" required #mac="ngModel">
+                  <div *ngIf="mac.invalid && (mac.dirty || mac.touched)"
+                         class="alert alert-danger">
+                      <div *ngIf="mac.errors.required">
+                        The Mac Address is required.
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+              
+            <div class="form-group">
+                <div class="row">
+                  <label for="tags" class="col-sm-3 col-md-3 control-label">Tags</label>
+                  <div class="col-sm-9 col-md-9">
+                    <tags-input class="form-control input-lg" [(ngModel)]="beaconData.tags" name="tags"></tags-input>              
+                  </div>
+                </div>
+            </div>
+    
+          </div>
+    
+          <div class="col-md-6">
+              <div class="form-group">
+                <div class="row">
+                  <label for="inputPassword3" class="col-md-1 control-label">Map<em>*</em></label>
+                  <div class="col-md-11">
+                    <!-- <div class="mainContainer" style="background-image: url('{{MapType}}');">&nbsp;</div> -->
+                    <div id="imageappend" align="center ">
+                      <img  id="image" src="{{MapType}}" width="100%" (load)="initaiteMap()" /><br/>
+                    </div>
+                    <input type="hidden" name="latitude" id="beaconmapX" [(ngModel)]="beaconData.latitude" >
+                    <input type="hidden" name="longitude" id="beaconmapY" [(ngModel)]="beaconData.longitude">
+                  </div>
+                </div>
+              </div>
+                
+              <div class="form-group" style="margin-top:20px;">
+                <div class="row">
+                  <label for="status" class="col-3 col-sm-3 col-md-3 control-label">Status<em>*</em></label>
+                  <div class="col-9 col-sm-9 col-md-9">              
+                    <mat-slide-toggle color="primary" [(ngModel)]="beaconData.status" name="status">
+                      {{beaconData.status?'Enabled':'Disabled'}}
+                    </mat-slide-toggle>
+                  </div>
+                </div>
+              </div>
+              <div class="spacebottom"></div>
+              <div class="form-group">
+                <div class="row">
+                  <label class="col-md-3 control-label"></label>
+                  <div class="col-md-9">
+                      <button type="button" (click)="save()" class="btn btn-info btn-save" [disabled]="!dataForm.form.valid">Save</button>
+                      <a [routerLink]="['/customer/home', { outlets: { popup: ['beacons'] } }]" class="btn btn-info btn-cancel">Cancel</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </form>
+    </div>

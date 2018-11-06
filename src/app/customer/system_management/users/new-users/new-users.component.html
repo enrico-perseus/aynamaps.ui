@@ -1,0 +1,105 @@
+
+<div class="header-div">New User</div>
+<div class="main-panel">
+    <form id="building-form" #dataForm="ngForm" (submit)="save()" name="buildingForm">
+        <div class="row">
+            <div class="col-md-6 form-horizontal">                
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-sm-3 col-md-3 control-label">Email<em>*</em></label>
+                            <div class="col-sm-9 col-md-9">
+                                <input type="text" class="form-control" id="email"
+                                    placeholder="Email" [(ngModel)]="user.email"
+                                    name="email" #email="ngModel" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                                    <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="email.errors.pattern">
+                                            Email should be user@ayna.com.
+                                        </div>
+                                    </div>                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-sm-3 col-md-3 control-label">Name<em>*</em></label>
+                            <div class="col-sm-9 col-md-9">
+                                <input type="text"
+                                        [(ngModel)]="user.name" 
+                                        class="form-control" 
+                                        placeholder="Name" 
+                                        name="Name" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-sm-3 col-md-3 control-label">Role <em>*</em></label>
+                            <div class="col-sm-9 col-md-9">
+                                <div class="form-group-bottom">
+                                    <select [(ngModel)]="user.role" name="RolesSelect" class="form-control" required>
+                                        <option *ngFor="let role of RolesList" value="{{role.role_name}}">
+                                            {{role.role_name}}
+                                        </option>
+                                    </select>                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-sm-3 col-md-3 control-label">Type<em>*</em></label>
+                            <div class="col-sm-9 col-md-9">
+                                <div class="form-footer-button">
+                                    <select class="form-control form-control-bottom lang ln-err" [(ngModel)]="user.type" name="type" required>
+                                        <option>Internal</option>
+                                        <option>External</option>
+                                    </select>                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top:20px;">
+                        <div class="row">
+                          <label for="status" class="col-3 col-sm-3 col-md-3 control-label">Status<em>*</em></label>
+                          <div class="col-9 col-sm-9 col-md-9">              
+                            <mat-slide-toggle color="primary" [(ngModel)]="user.status" name="status">
+                              {{user.status?'Enabled':'Disabled'}}
+                            </mat-slide-toggle>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-md-6 form-horizontal">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <img class="profile-pic" src="{{user.logo}}" />
+                                <div class="new-useruploadimaga">
+                                    <div class="upload-button">Upload Image</div>
+                                    <div class="remove-btn22" style="display:none">Remove Image</div>
+                                    <input type="file" class="hidden file-upload" accept="image/*" ng-model-instant
+                                        onchange="angular.element(this).scope().imageUpload(event)" [(ngModel)]="user.logo" name="FileType" file-model="user.logo" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-space"></div>                    
+                </div>
+            </div>
+        </div>
+            
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3">&nbsp;</div>
+                <div class="col-md-9">
+                    <button type="submit" class="btn btn-info btn-save" [disabled]="!dataForm.form.valid">Save</button>
+                    <button type="button" class="btn btn-info btn-cancel" data-dismiss="modal" (click)="GetUserList()">Cancel</button>
+                </div>
+            </div>
+        </div>        
+    </form>
+</div>

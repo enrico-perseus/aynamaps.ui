@@ -1,0 +1,180 @@
+<div class="col-md-12 full-width-colum-ber-buildingpag" style="padding-left:0px !important;padding-right:0px !important;">
+    <div class="top-part" style="margin: 0px !important;">
+        <div class="left">
+            <a style="cursor:context-menu;">
+                <img src="/assets/images/setting2-icon.png" alt="" class="setting-icon"><h5>Settings</h5>
+            </a>
+        </div>
+    </div>
+    <!-- Main Contant Area Start -->
+    <div class="main-panel">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="keywords">
+                <thead>
+                    <tr>
+                        <th>Account UID </th>
+                        <th>License Type</th>
+                        <th>Total Users</th>
+                        <th>Acc. Type</th>
+                        <th>Subs. Type</th>
+                        <th>Subs. Issue Date</th>
+                        <th>Subs. Expiry Date</th>
+                        <th>Service Expiry Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">{{userInfo._id}}</td>
+                        <td>{{ userInfo.license_type }}</td>
+                        <td>{{ (userInfo.is_user_unlimited == false) ? userInfo.user_value : 'Infinite' }} </td>
+                        <td>{{ userInfo.account_type }}</td>
+                        <td>{{ userInfo.subscription_type }}</td>
+                        <td>{{ userInfo.subscription_start_date | date:'yyyy-MM-dd' }}</td>
+                        <td>{{ userInfo.subscription_end_date | date:'yyyy-MM-dd' }}</td>
+                        <td>{{ userInfo.validity_end_date | date:'yyyy-MM-dd' }}</td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <form id="building-form" #dataForm="ngForm" name="systemSettingsForm">
+            <div class="form-horizontal">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" style="margin-top:20px;">
+                            <div class="row">
+                                <label for="inputPassword3" class="col-sm-4 control-label">Database connection status:</label>
+                                <div class="col-sm-8">
+                                    <div class="form-control" id="inputEmail3" placeholder="UID" readonly="">UID</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-sm-4 control-label">Refresh Services</label>
+                                <div class="col-sm-8">
+                                    <button type="button" class="btn btn-success btn-block refresh-btn" contenteditable="flush">Refresh</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-sm-4 control-label">System Data</label>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-danger btn-block import-btn" contenteditable="flush">Import Data</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-danger btn-block export-btn" contenteditable="flush">Export Data</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <div class="row">
+                                <label class="col-sm-4 control-label">Update Subscription</label>
+                                <div class="col-sm-8">
+                                    <button type="button" class="btn btn-info btn-block upload-btn-file" contenteditable="flush">Upload AYNA license file</button>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>     
+
+                    <div class="col-md-6">
+                        <!-- <div class="form-group" style="margin-top:20px;">                        
+                            <div class="row">
+                                <label for="tags" class="col-md-3 control-label">System Language</label>
+                                <div class="col-md-9">
+                                    <ul class="language-list">
+                                        <li *ngFor="let language of languages">
+                                            <div class="row">                                          
+                                                <div class="col-8  col-sm-8 col-md-8 language-list-element">{{language.displayValue}}</div>
+                                            </div> 
+                                        </li>                
+                                    </ul>
+                                </div>
+                            </div>
+                        </div> -->
+                        
+                        <div class="form-group" style="margin-top:20px;">
+                            <div class="form-group">
+                                <div class="alerts-bg">
+                                    <div class="row">
+                                        <label class="col-6 col-sm-8 col-md-10 control-label">Alerts</label>
+                                        <div class="col-3 col-sm-2 col-md-1"> <span class="control-label">Yes</span> </div>
+                                        <div class="col-3 col-sm-2 col-md-1"> <span class="control-label">No</span> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-group6">
+                                <div class="row">
+                                    <label class="col-6 col-sm-8 col-md-10 control-label">Koisk Status</label>
+                                    <div class="col-3 col-sm-2 col-md-1">
+                                        <div class="dx-field">                            
+                                            <div class="dx-field-value">
+                                                <dx-check-box [(value)]="kioskYes" (click)="kioskCheck('yes')"></dx-check-box>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 col-sm-2 col-md-1">
+                                        <div class="dx-field">                            
+                                            <div class="dx-field-value">
+                                                <dx-check-box [(value)]="kioskNo" (click)="kioskCheck('no')"></dx-check-box>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <label for="account-type" class="col-md-3 control-label">Emails</label>                                  
+                                <div class="col-sm-8 col-md-6">
+                                    <input type="text" class="form-control" id="email"
+                                        placeholder="Email" [(ngModel)]="receivedEmail"
+                                        name="email" #email="ngModel" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                                        <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="email.errors.pattern">
+                                                Email should be user@ayna.com.
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="col-sm-4 col-md-3" style="padding-left:20px; text-align:center;">
+                                    <input type="button" (click)="addEmail()" class="btn btn-info btn-add-lang" [disabled]="email.invalid" value="ADD">
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="col-md-3">&nbsp;</div>
+                                <div class="col-md-6">
+                                    <ul class="language-list" *ngIf="(settingData.kioskEmail).length!=0">
+                                    <li *ngFor="let email of settingData.kioskEmail">
+                                        <div class="add-bg">
+                                            <div class="row">                                          
+                                                <div class="col-9  col-sm-9 col-md-9">{{email.email}}</div>
+                                                <div class="col-3  col-sm-3 col-md-3">
+                                                    <input type="button" class="del del_language fa fa-trash-o" (click)="removeEmail(email)" value="Delete">
+                                                </div>
+                                            </div>    
+                                        </div>
+                                    </li>                
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                            
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3">&nbsp;</div>
+                                <div class="col-md-9 col-sm-9">
+                                    <button type="button" (click)="save()" [disabled]="!dataForm.form.valid" class="btn btn-info btn-save">Save</button>
+                                    <button type="button" class="btn btn-info btn-cancel">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

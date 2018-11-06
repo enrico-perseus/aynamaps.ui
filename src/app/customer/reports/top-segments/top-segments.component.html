@@ -1,0 +1,121 @@
+<div class="col-md-12 full-width-colum-ber-buildingpag"  style="padding-left:0px !important;padding-right:0px !important;">
+    <div class="top-part" style="margin: 0px !important;">
+        <div class="left">
+            <a style="cursor:context-menu;">
+            <h5>Top Segments </h5>
+            </a>            
+        </div>
+    </div>
+    <div class="action-bar">
+        <form id="building-form" #dataForm="ngForm" name="buildingForm">
+        <div class="topnav" id="langNav" style="color:#fff">
+          <div class="row">
+            <div class="col-10 col-sm-10 col-md-10">
+              <div class="row show">
+                <div class="col-sm-4 col-md-2 item">
+                  <div class="form-group">
+                    <div class="row">
+                      <label for="from" class="col-6 col-sm-4 col-md-3 control-label">From</label>
+                      <div class="col-6 col-sm-8 col-md-9">
+                        <ss-multiselect-dropdown name="from" [options]="viewFloors" 
+                          [settings]="mySettings" [texts]="myTexts"></ss-multiselect-dropdown>
+                        </div>
+                      </div>
+                    </div>
+                   </div>
+                        
+                  <div class="col-sm-4 col-md-2 item">
+                    <div class="form-group">
+                      <div class="row">
+                        <label for="to" class="col-6 col-sm-4 col-md-3 control-label">To</label>
+                        <div class="col-6 col-sm-8 col-md-9">
+                          <ss-multiselect-dropdown name="to" [options]="viewFloors" 
+                          [settings]="mySettings" [texts]="myTexts"></ss-multiselect-dropdown>
+                        </div>
+                      </div>
+                    </div>
+                  </div>    
+                  
+                  <div class="col-sm-4 col-md-2 item">
+                    <div class="form-group">
+                      <div class="row">
+                      <label for="group" class="col-6 col-sm-4 col-md-3 control-label">Kiosk</label>
+                        <div class="col-6 col-sm-8 col-md-9">
+                          <ss-multiselect-dropdown name="group" [options]="viewPlayers" 
+                          [settings]="mySettings" [texts]="myTexts"></ss-multiselect-dropdown>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-2 item">
+                    <div class="form-group">
+                      <div class="row">
+                        <label for="group" class="col-6 col-sm-4 col-md-3 control-label">Building</label>
+                        <div class="col-6 col-sm-8 col-md-9">
+                          <ss-multiselect-dropdown name="building" [options]="viewBuildings" 
+                          [settings]="mySettings" [texts]="myTexts"></ss-multiselect-dropdown>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-4 col-md-2 item">
+                    <div class="form-group">
+                      <div class="row">
+                        <label for="group" class="col-6 col-sm-4 col-md-3 control-label">Floor</label>
+                        <div class="col-6 col-sm-8 col-md-9">
+                          <ss-multiselect-dropdown name="building" [options]="viewFloors" 
+                          [settings]="mySettings" [texts]="myTexts"></ss-multiselect-dropdown>
+                        </div>
+                      </div>
+                    </div>
+                  </div>                  
+                  <div class="col-sm-4 col-md-2 item">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-6 col-sm-4 col-md-3 control-label">&nbsp;</div>    
+                        <button class="col-6 col-sm-8 col-md-9 btn btn-info btn-ok">OK</button>
+                      </div>
+                    </div>
+                  </div>              
+                </div>            
+              </div>
+              <div class="col-10 col-sm-2 col-md-2 sensitive">            
+                <div class="dropdown col-6">
+                  <button class="dropbtn"><i class="fa fa-download" aria-hidden="true"></i> <span>Export</span>
+                      <i class="fa fa-caret-down"></i>
+                  </button>
+                  <div class="clear"></div>
+                  <div class="dropdown-content">
+                      <a (click)="exportToPDF()"> <i class="fa fa-file-pdf-o" aria-hidden="true" style="margin-right:8px;"></i> <span>Pdf</span> </a>
+                      <a (click)="exportToExcel()"> <i class="fa fa-file-excel-o" aria-hidden="true" style="margin-right:8px;"></i> <span>Excel</span> </a>
+                  </div>
+                </div>
+              </div>
+              <a href="javascript:void(0);" class="icon" (click)="openMenu()">&#9776;</a>           
+              <div style="clear:both;"></div>  
+            </div>
+          </div>
+          </form>                  
+      </div>    
+      <div class="main-panel">
+        <div style="overflow-x: auto;">
+            <table class="table table-hover order-table table" id="CustomerListAll">
+                <thead>
+                    <tr style="background:white;">
+                        <th>
+                            <span>Segment/Category</span>
+                        </th>
+                        <th>
+                            <span>Perfomance</span>
+                        </th>
+                    </tr>
+                </thead>
+               
+            </table>
+        </div>
+        <div class="pagination-div" *ngIf="(viewNms).length!=0">
+            <pagination-controls (pageChange)="p=$event"></pagination-controls>
+        </div>
+    </div>
+  

@@ -1,0 +1,137 @@
+.main-panel{
+    padding: 10px;
+    margin: 10px;
+    background-color: white;
+  }
+  
+  .main-panel div.row{
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  
+  .header-div {
+    background-color: #383838;
+    color: white;
+    line-height: 55px;
+    padding-left: 20px;
+    font-size: 23px;
+    font-weight: 600;
+  }
+  
+  .control-label {
+    padding-top: 7px;
+    font-weight: 600;
+  }
+
+  .dx-fieldset {
+    margin: 10px 20px;
+    padding: 0 30px 0 0;
+  }
+
+  .dx-field-label {
+    padding-left: 0;
+    padding-right: 0;
+    float: left;
+    width: 60%
+  }
+
+  .dx-field-value,
+  .dx-field-value-static {
+    float: right;
+  }
+
+  .dx-field-value:not(.dx-widget) > .dx-button, .dx-field-value:not(.dx-widget) > .dx-checkbox, .dx-field-value:not(.dx-widget) > .dx-switch {
+    float: left;
+  }
+
+  .dx-field-value:not(.dx-switch):not(.dx-checkbox):not(.dx-button), .dx-field-value-static {
+    width: 100% !important;
+  }
+  
+  .dx-datebox {
+    width: 100% !important;
+  }
+  
+  input[type="checkbox"]  {
+    width: 16px;
+    height: 16px;
+    margin-top: 10px;
+  }
+  
+  .dropzone {
+    border: 1px solid #DDD;
+    min-height: 190px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #fff;
+    background: url('/assets/images/brows-btn.png') center 30px no-repeat;
+    padding: 0px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .btn-save {
+    background: #62bb46;
+    float: left !important;
+    margin-left: 0px !important;
+    width: 48%;
+    padding: 10px 10px;
+    font-size: 18px;
+    border: none;
+    margin: 0px 4px;
+    display: table-cell;
+  }
+
+  .btn-add-lang {
+    background: #62bb46;
+    margin-left: 0px !important;
+    width: 48%;
+    padding: 5px 5px;
+    font-size: 16px;
+    border: none;
+    margin: 0px 4px;
+    margin-top: 2px;
+    display: table-cell;
+  }
+  
+  .btn-cancel {
+    background: #f04e29;
+    float: right !important;
+    margin-left: 0px !important;
+    width: 48%;
+    padding: 10px 10px;
+    font-size: 18px;
+    border: none;
+    color: white !important;
+    display: table-cell;
+  }
+  
+  .dropdown-menu {
+    width: 100% !important;
+  }
+
+  .tablenew table {
+    width: 100%;
+    border: 1px solid #DDD;
+  }
+
+  .tablenew table tr td, .tablenew table tr th {
+      padding: 10px;
+      text-align: center;
+      border-left: 1px solid #DDD;
+  }
+
+  .tablenew table tr td:first-child, .tablenew table tr th:first-child {
+      border-left: 0px solid #DDD !important;
+      text-align: left !important;
+  }
+
+  .tablenew input[type=checkbox] {
+      width: 20px !important;
+      height: 20px !important;
+      display: table;
+      box-sizing: border-box;
+      text-align: center;
+      margin: 0px auto;
+  }

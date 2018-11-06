@@ -1,0 +1,111 @@
+<div class="col-md-12 full-width-colum-ber-buildingpag"  style="padding-left:0px !important;padding-right:0px !important;">
+    <div class="top-part" style="margin: 0px !important;">
+        <div class="left">
+            <a style="cursor:context-menu;">
+                <h5>Floors-Acess </h5>
+            </a>
+            <div class="top-select-right" >
+                <div class="select-tag">
+                    <label class="label-title">Building</label>
+                    <select class="lable-select" [(ngModel)]="selectedBuilding"  name="BuildingSelected" (change)="buildingChange()">
+                            <option value="0">All</option>  
+                            <option *ngFor="let building of buildings" value="{{building.building_id}}" >{{building.building_name[0].name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>    
+    </div>
+  <div class="action-bar">
+      <div class="topnav" id="langNav">
+          <a class="item" (click)="addFloors()"><i class="fa fa-plus-square-o" aria-hidden="true"></i><span> Add</span></a>
+          <a class="item" (click)="editFloors()" [ngClass]="{'adisabled': selectedFloor.length != 1}"><i class="fa fa-pencil" aria-hidden="true"></i> <span>Edit</span></a>
+          <a class="item" (click)="deleteFloors()" [ngClass]="{'adisabled': selectedFloor.length != 1}"><i class="fa fa-trash" aria-hidden="true"></i><span> Delete</span></a>
+          <div class="item wrapper" style="float:left;">
+              <div class="icon-search-container" data-ic-class="search-trigger">
+                  <span class="fa fa-search"></span> 
+                  <span class="search-text">Search</span>
+                  <input data-table="order-table" type="text" class="search-input   light-table-filter" data-ic-class="search-input" placeholder="Search" name="search" [(ngModel)]="filter" />
+                  <span class="fa fa-times-circle" data-ic-class="search-clear"></span>
+              </div>
+          </div>
+          <a class="item" (click)="getFloors()"><i class="fa fa-refresh" aria-hidden="true"></i> <span>Refresh</span></a>
+          <div class="dropdown item" style="float:left;">
+              <button class="dropbtn"><i class="fa fa-download" aria-hidden="true"></i> <span>Export</span>
+                  <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="clear"></div>
+              <div class="dropdown-content">
+                  <a (click)="exportToPDF()"> <i class="fa fa-file-pdf-o" aria-hidden="true" style="margin-right:8px;"></i> <span>Pdf Document</span> </a>
+                  <a (click)="exportToExcel()"> <i class="fa fa-file-excel-o" aria-hidden="true" style="margin-right:8px;"></i> <span>Excel Document</span> </a>
+              </div>
+          </div>
+          <a href="javascript:void(0);" class="icon" (click)="openMenu()">&#9776;</a>
+          <div style="clear:both;"></div>
+      </div>
+  </div>    
+  <div class="main-panel">
+      <div style="overflow-x: auto;">
+          <table class="table table-hover order-table table" id="categoryTable">
+              <thead>
+                  <tr style="background:white;">
+                      <th>
+                          <span>Building Name</span>
+                      </th>
+                      <th>
+                          <span>Floor Access Name</span>
+                      </th>
+                      <th>
+                        <span>Type</span>
+                      </th>
+                      <th>
+                        <span>Accessibility</span>
+                      </th>
+                      <th>
+                        <span>From</span>
+                      </th>
+                      <th>
+                        <span>To</span>
+                      </th>
+                      <th >
+                          <span>Current Status</span>
+                      </th>
+                  </tr>
+              </thead>
+              <tbody class="floors_table">
+
+                  <tr *ngFor="let floor of viewFloors | orderBy:key:reverse | filter:filter | paginate: {itemsPerPage: 10, currentPage: p}; let i=index"
+                     [ngClass]="{'selected':floor.selected}"
+                     (click)="selectFloor(floor)">
+                      <td>
+                          {{floor.building_id}}
+                      </td>
+                      <td>
+                          {{floor.flooraccess_code}}
+                      </td>
+                      <td>
+                          {{floor.type}}
+                      </td>
+                      <td>
+                          {{floor.accessibility}}
+                      </td>
+                      <td>
+                          {{floor.floor_id_from[0].short_name}}
+                      </td>
+                      <td>
+                          {{floor.floor_id_to[0].short_name}}
+                      </td>
+                      <td>
+                          <span style="width:50px; height:50px; border-radius:50%; background:green" *ngIf="floor.status">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                          <span style="width:50px; height:50px; border-radius:50%; background:red" *ngIf="!floor.status">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                      </td>
+                  </tr>
+                  <tr *ngIf="(viewFloors).length==0">
+                      <td colspan="7">Sorry!! No Result Found</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+      <div class="pagination-div" *ngIf="(viewFloors).length!=0">
+          <pagination-controls (pageChange)="p=$event"></pagination-controls>
+      </div>
+  </div>

@@ -1,0 +1,231 @@
+<div class="header-div">Edit Floor-Access</div>
+<div class="main-panel">
+  <form id="floor-form" #dataForm="ngForm" name="floorForm">
+    <div class="row">
+      <div class="col-md-6">
+
+          <div class="form-group">
+              <div class="row">
+                <label for="inputEmail3" class="col-sm-4 col-md-4 control-label">UID</label>
+                <div class="col-sm-8 col-md-8">
+                    <input type="text" class="form-control guid_input" id="inputEmail3" placeholder="UID"
+                     readonly [(ngModel)]="floorData._id" name='guid'/>
+                </div>
+              </div>
+          </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-4 col-md-4 control-label">Floor Access Code<em>*</em></label>
+            <div class="col-sm-8 col-md-8">
+              <input type="text" class="form-control" id="floor_id"
+                     placeholder="Access Code" [(ngModel)]="floorData.flooraccess_code"
+                     name="accessCode" required #floorID="ngModel">
+              <div *ngIf="floorID.invalid && (floorID.dirty || floorID.touched)"
+                   class="alert alert-danger">
+                <div *ngIf="floorID.errors.required">
+                  The Access Code is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-4 col-md-4 control-label">Type<em>*</em></label>
+            <div class="col-sm-8 col-md-8">
+                <select class="form-control" [(ngModel)]="floorData.type" (change)="typechange()" name="type" required #type="ngModel">
+                  <option *ngFor="let type of AccessibilityType" value="{{type.name}}">{{type.name}}</option>
+                </select>
+                <div *ngIf="type.invalid && (type.dirty || type.touched)"
+                class="alert alert-danger">
+              <div *ngIf="type.errors.required">
+                The Type is required.
+              </div>
+            </div>
+            </div>
+          </div>          
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label class="col-6 col-sm-4 col-md-4 control-label">Accessibility</label>
+            <div class="col-6 col-sm-8 col-md-8">
+                <mat-slide-toggle color="primary" [(ngModel)]="floorData.accessibility" name="status">
+                    {{floorData.accessibility?'Enabled':'Disabled'}}
+                </mat-slide-toggle>
+            </div>
+          </div>
+        </div>      
+
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-4 col-md-4 control-label">Accessable Floors From<em>*</em></label>
+            <div class="col-sm-8 col-md-8">
+                <ss-multiselect-dropdown name="fif" [options]="myOptions" id="fif" 
+                  [(ngModel)]="floorData.floor_id_from" #fif="ngModel" (ngModelChange)="fifchange()"
+                  [settings]="mySettings" [texts]="myTexts" required></ss-multiselect-dropdown>
+              <!-- <select class="form-control" [(ngModel)]="floorData.floor_id_from" (change)="fifchange()" name="fif" required #fif="ngModel">
+                <option *ngFor="let floor of floors" value="{{floor._id}}">{{floor.short_name}}</option>
+              </select>
+              <div *ngIf="fif.invalid && (fif.dirty || fif.touched)"
+                class="alert alert-danger">
+              <div *ngIf="fif.errors.required">
+                The Accessable Floors From is required.
+              </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-4 col-md-4 control-label">Accessable Floors To<em>*</em></label>
+            <div class="col-sm-8 col-md-8">
+                <ss-multiselect-dropdown name="fit" [options]="myOptions" id="fit" 
+                  [(ngModel)]="floorData.floor_id_to" #fit="ngModel" (ngModelChange)="fitchange()"
+                  [settings]="mySettings" [texts]="myTexts" required></ss-multiselect-dropdown>
+              <!-- <select class="form-control" [(ngModel)]="floorData.floor_id_to" (change)="fitchange()" name="fit" required #fit="ngModel">
+                <option *ngFor="let floor of floors" value="{{floor._id}}">{{floor.short_name}}</option>
+              </select>
+              <div *ngIf="fit.invalid && (fit.dirty || fit.touched)"
+                class="alert alert-danger">
+              <div *ngIf="fit.errors.required">
+                The Accessable Floors To is required.
+              </div>
+            </div> -->
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="row">
+              <label class="col-sm-4 col-md-4 control-label">Tags</label>
+              <div class="col-sm-8 col-md-8">
+                <tags-input class="form-control input-lg" [(ngModel)]="floorData.tags" name="tags"></tags-input>              
+              </div>
+            </div>
+        </div>
+      </div>
+        
+      <div class="col-md-6">      
+          <div class="form-group">
+              <div class="row">
+                <label for="info" class="col-sm-4 col-md-4 control-label">Parent</label>
+                <div class="col-sm-8 col-md-8">
+                  <input type="test" name="floorParent" id="floors_parent" class="form-control"
+                      placeholder="Parent"
+                      [(ngModel)]="floorData.parent">
+                </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <label for="account-name" class="col-sm-4 col-md-4 control-label">Validity<em>*</em></label>
+              <div class="col-sm-8 col-md-8">
+                <select class="form-control" [(ngModel)]="floorData.validity" name="validity" required #validity="ngModel">
+                  <option *ngFor="let validity of timeslots" value="{{validity.name}}">{{validity.name}}</option>
+                </select>
+                <div *ngIf="validity.invalid && (validity.dirty || validity.touched)"
+                  class="alert alert-danger">
+                <div *ngIf="validity.errors.required">
+                  The Validity is required.
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top:20px;">
+              <div class="row">
+                <label for="status" class="col-4 col-sm-4 col-md-4 control-label">Status<em>*</em></label>
+                <div class="col-8 col-sm-8 col-md-8">              
+                  <mat-slide-toggle color="primary" [(ngModel)]="floorData.status" name="status">
+                    {{floorData.status?'Enabled':'Disabled'}}
+                  </mat-slide-toggle>
+                </div>
+              </div>
+            </div>
+
+            <div class="spacebottom"></div>
+            <div class="form-group">
+              <div class="row">
+                <label class="col-md-3 control-label"></label>
+                <div class="col-md-9">
+                    <button type="button" (click)="save()" class="btn btn-info btn-save" [disabled]="!dataForm.form.valid">Save</button>
+                    <a [routerLink]="['/customer/home', { outlets: { popup: ['flooraccess'] } }]" class="btn btn-info btn-cancel">Cancel</a>
+                </div>
+              </div>
+            </div>
+
+      </div>
+    </div>
+
+      <div class="view">
+          <div class="row">
+              <div class="col-md-6 column ui-sortable">
+                  <div class="box box-element ui-draggable" *ngIf="fifaccessable.length != 0">
+                      <div class="view">
+                          <div class="tabbable" id="tabs-427395">
+                              <ul class="nav nav-tabs" id="nav1">
+                                  <li class="countryIndia " *ngFor="let logo of fifaccessable">
+                                      <a class="tab {{ logo.active == true?  'active' :''}}" href="#from_{{logo.id}}" data-toggle="tab" *ngIf="logo.map.length != 0" (click) = "onTabFrom()">
+                                          <!-- {{FetchEnglishNameFromJson(type.long_name)}} -->
+                                          {{logo.name}}
+                                      </a>
+                                  </li>
+                              </ul>
+                              <div class="tab-content ">
+                                  <div class="tab-pane from-map {{ logo.active == true?  'active' :''}}" id="from_{{logo.id}}" *ngFor="let logo of fifaccessable">
+                                      <div class="form-group">
+                                          <label class="col-md-1 control-label">From(Map)</label>
+                                          <div id="imageappend" class="col-md-11">
+                                              <img id="imagefif{{logo.name}}" src="{{basePath + '/' + logo.map}}" style="width:100%" (load)="initaiteMap(logo, true)">
+                                          </div>
+                                          <input type="hidden" name="latitude" id="fifmapX" [(ngModel)]="fifPosition.latitude" >
+                                          <input type="hidden" name="longitude" id="fifmapY" [(ngModel)]="fifPosition.longitude">
+                                          <div class="clear"></div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="col-md-6 column ui-sortable">
+                  <div class="box box-element ui-draggable" *ngIf="fitaccessable.length != 0" style="display: block;">
+                      <div class="view">
+                          <div class="tabbable" id="tabs-427395">
+                              <!-- Only required for left/right tabs -->
+                              <ul class="nav nav-tabs">
+                                  <li class="countryIndia " *ngFor="let logo of fitaccessable">
+                                      <a class="tab {{(logo.active == true) ?  'active' :''}}" href="#to_{{logo.id}}" data-toggle="tab" *ngIf="logo.map.length != 0"  (click)="onTabTo()">
+                                          {{logo.name}}
+                                      </a>
+                                  </li>
+                              </ul>
+                              <div class="tab-content">
+                                  <div class="tab-pane to-map {{ (logo.active == true)?  'active' :''}}" id="to_{{logo.id}}"  *ngFor="let logo of fitaccessable">
+                                      <div class="form-group">
+                                          <label class="col-md-1 control-label">To(Map)</label>
+                                          <div id="imagefitappend" class="col-md-11">
+                                              <img id="imagefit{{logo.name}}" src="{{basePath + '/' + logo.map}}" style="width:100%" (load)="initaiteMap(logo, false)">
+                                          </div>
+                                          <input type="hidden" name="latitude" id="fitmapX" [(ngModel)]="fitPosition.latitude" >
+                                          <input type="hidden" name="longitude" id="fitmapY" [(ngModel)]="fitPosition.longitude">
+                                          <div class="clear"></div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+  </form>
+</div>

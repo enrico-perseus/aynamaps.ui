@@ -1,0 +1,135 @@
+<!--
+<p>
+  dashboard works!
+  <button (click)="logout()">Logout</button>
+</p>
+-->
+
+<app-admin-navbar></app-admin-navbar>
+
+<app-admin-common-chart-block></app-admin-common-chart-block>
+<div class="action-bar">
+    <div class="topnav" id="langNav">
+        <a class="item" (click)="addCustomer()"><i class="fa fa-plus-square-o" aria-hidden="true"></i><span> Add</span></a>
+        <a class="item" (click)="editCustomer()" [ngClass]="{'adisabled': selectedCustomer.length != 1}"><i class="fa fa-pencil" aria-hidden="true"></i> <span>Edit</span></a>
+        <div class="item wrapper" style="float:left;">
+            <div class="icon-search-container" data-ic-class="search-trigger">
+                <span class="fa fa-search"></span> 
+                <span class="search-text">Search</span>
+                <input data-table="order-table" type="text" class="search-input   light-table-filter" data-ic-class="search-input" placeholder="Search" name="search" [(ngModel)]="filter"/>
+                <span class="fa fa-times-circle" data-ic-class="search-clear"></span>
+            </div>
+        </div>
+        <a class="item" (click)="getCustomers()"><i class="fa fa-refresh" aria-hidden="true"></i> <span>Refresh</span></a>
+        <a class="item" (click)="goToLanguage()"><i class="fa fa-language" aria-hidden="true"></i><span> Language</span></a>
+        <div class="dropdown item" style="float:left;">
+            <button class="dropbtn"><i class="fa fa-database" aria-hidden="true"></i> <span>Import/Export</span>
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="clear"></div>
+            <div class="dropdown-content">
+                <a (click)="importDb()"><i class="fa fa-hand-o-left" aria-hidden="true" style="margin-right:8px;"></i> <span>Import</span></a>
+                <a (click)="exportDb()"><i class="fa fa-hand-o-right" aria-hidden="true" style="margin-right:8px;"></i> <span>Export</span> </a>
+            </div>
+        </div>
+        <div class="dropdown item" style="float:left;">
+            <button class="dropbtn"><i class="fa fa-download" aria-hidden="true"></i> <span>Export</span>
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="clear"></div>
+            <div class="dropdown-content">
+                <a (click)="exportToPDF()"> <i class="fa fa-file-pdf-o" aria-hidden="true" style="margin-right:8px;"></i> <span>Pdf Document</span> </a>
+                <a (click)="exportToExcel()"> <i class="fa fa-file-excel-o" aria-hidden="true" style="margin-right:8px;"></i> <span>Excel Document</span> </a>
+            </div>
+        </div>
+        <a href="javascript:void(0);" class="icon" (click)="openMenu()">&#9776;</a>
+        <div style="clear:both;"></div>
+    </div>
+</div>    
+<div class="main-panel">
+    <div style="overflow-x: auto;">
+        <table class="table table-hover order-table table" id="CustomerListAll">
+            <thead>
+                <tr style="background:white;">
+                    <th >
+                        <span>UID</span>
+                    </th>
+                    <th (click)="sort('account_name')">
+                        <span>Account Name</span>
+                    </th>
+                    <th>
+                        <span>Licenses Type</span>
+                    </th>
+                    <th >
+                        <span># of koisks</span>
+                    </th>
+                    <th >
+                        <span>Subscription Type </span>
+                    </th>
+                    <th >
+                        <span>Issue Date</span>
+                    </th>
+                    <th >
+                        <span>Expiry Date</span>
+                    </th>
+                    <th >
+                        <span>SLA Level</span>
+                    </th>
+                    <th >
+                        <span>Status</span>
+                    </th>
+                    <th >
+                        <span>Overall Online </span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+
+                <tr *ngFor="let customer of customers | orderBy:key:reverse | filter:filter | paginate: {itemsPerPage: 10, currentPage: p}; let i=index" 
+                [ngClass]="{'selected':customer.selected}" 
+                (click)="selectCustomer(customer)">
+                    <td>
+                        {{customer._id}}
+                    </td>
+                    <td>
+                        {{customer.account_name}}
+                    </td>
+                    <td>
+                        {{customer.license_type}}
+                    </td>
+                    <td>
+                        {{(customer.is_kiosk_unlimited)?'infinite':customer.kiosk_value}}
+                    </td>
+                    <td>
+                        {{customer.subscription_type}}
+                    </td>
+                    <td >
+                        {{customer.subscription_start_date | date:'yyyy-MM-dd'}}
+                    </td>
+                    <td >
+                        {{customer.subscription_end_date | date:'yyyy-MM-dd'}}
+                    </td>
+                    <td>
+                        {{customer.sla_level}}
+                    </td>
+                    <td>
+                        {{customer.status?'Enabled':'Disabled'}}
+                    </td>
+                    <td>
+                        <div class="progressbar33">
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar progress-success" id="myBar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%">60%</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="(customers).length==0">
+                    <td colspan="10">Sorry!! No Result Found</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination-div" *ngIf="(customers).length!=0">
+        <pagination-controls (pageChange)="p=$event"></pagination-controls>
+    </div>
+</div>

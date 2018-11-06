@@ -1,0 +1,52 @@
+<app-admin-navbar></app-admin-navbar>
+<div class="topnav" id="langNav">
+    <a class="item" [ngClass]="{'active':bShowLang}" (click)="showLangList()"><i class="fa fa-language" aria-hidden="true"></i> Language</a>
+    <a class="item" [ngClass]="{'active':bShowAdd}" (click)="addLanguage()"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Add</a>
+    <a class="item" [ngClass]="{'adisabled': selectedLang.length != 1}" (click)="editLanguage()"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+    <a class="item" [ngClass]="{'adisabled': selectedLang.length != 1}" (click)="deleteLanguage()"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+    <a href="javascript:void(0);" class="icon" (click)="openMenu()">&#9776;</a>
+</div>
+
+<div class="main-panel">
+    <div style="overflow-x: auto;" *ngIf="bShowLang">        
+        <table>
+            <thead>
+                <th>Language</th>
+                <th>Language Direction</th>
+                <th>Inspire me</th>
+                <th>Search</th>
+                <th>Easy-access</th>
+                <th>Top 5</th>
+                <th>Downloading</th>
+                <th>Connect</th>
+                <th>Save</th>
+                <th>Cancel</th>
+                
+            </thead>
+            <tbody>
+                <tr *ngFor="let language of languages | paginate: {itemsPerPage: 10, currentPage: p}; let i=index" 
+                    [ngClass]="{'selected':language.selected}" 
+                    (click)="selectLang(i)">
+                    <td>{{language.language}}</td>
+                    <td>{{language.direction?'LEFT to RIGHT':'RIGHT to LEFT'}}</td>
+                    <td>{{language.inspire_me}}</td>
+                    <td>{{language.search}}</td>
+                    <td>{{language.easy_access}}</td>
+                    <td>{{language.top5}}</td>
+                    <td>{{language.downloading}}</td>
+                    <td>{{language.connect}}</td>
+                    <td>{{language.save_lang}}</td>
+                    <td>{{language.cancel_lang}}</td>
+                </tr>
+                <tr *ngIf="(languages).length==0">
+                    <td colspan="10">Sorry!! No Result Found</td>
+                </tr> 
+            </tbody>             
+        </table>
+    </div>
+    <div class="pagination-div" *ngIf="(languages).length!=0 && bShowLang">
+        <pagination-controls (pageChange)="p=$event"></pagination-controls>
+    </div>
+    <app-add-language [parent]="this" *ngIf="bShowAdd"></app-add-language>
+    <app-edit-language *ngIf="bShowEdit" [parent]="this" [languageId]="languageId"></app-edit-language>
+</div>

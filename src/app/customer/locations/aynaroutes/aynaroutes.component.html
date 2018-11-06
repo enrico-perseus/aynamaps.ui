@@ -1,0 +1,114 @@
+<div id="main-divhere"  class="col-md-12 full-width-colum-ber-buildingpag"  style="padding-left:0px !important;padding-right:0px !important;">
+    <div class="top-part" style="margin: 0px !important;">
+        <div class="left">
+            <a style="cursor:context-menu;">
+            <h5>AYNA ROUTES </h5>
+            </a>
+            <div class="top-select-right" >
+                <div class="select-tag">
+                    <label class="label-title">Building</label>
+                    <select class="lable-select" [(ngModel)]="selectedBuilding"  name="BuildingSelected" (change)="buildingChange()" >
+                        <option  *ngFor="let building of buildings" value="{{building.building_id}}" >{{building.building_name[0].name}}</option>
+                    </select>
+
+                    <label class="label-title">Floor</label>
+                    <select class="lable-select" [(ngModel)]="selectedFloor"  name="FloorSelected" (change)="floorChange()">
+                        <option  *ngFor="let floor of viewFloors | orderNby: 'floor_position'" value="{{floor.short_name}}" >{{floor.short_name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-panel">
+
+        <div class="col-md-12 form-horizontal">
+            <div class="row" oncontextmenu="return false;">
+                <div id="view_content" class="table-responsive" (window:resize)="viewResized()">
+                    <div id="draw">
+                        <div id="toolbar">
+                            <div  class="toolbar_icon hand-box active-picker"   style="cursor: pointer;">
+                                <span></span>
+                            </div>
+
+                            <div  class="toolbar_icon"  style="cursor: pointer;">
+                                <span class="tooltiptext">walkable area</span>
+                                <span class="color-box first-color"></span>
+                            </div>
+                            <div  class="toolbar_icon"   style="cursor: pointer;">
+                                <span class="tooltiptext">disabled walkable area</span>
+                                <span class="color-box second-color"></span>
+                            </div>
+                        </div>
+
+                        <div id="view" (resizeEnd)="viewResized()">
+                          <canvas id="mycanvas"  style="background-repeat:  no-repeat;background-position: top left;background-size: contain;display: none" ></canvas>
+                          <img id="image" [src]="MapType"/>
+                        </div>
+                    </div>
+                    <div id="rsidebar">
+                        <div class="rsearch-box">
+                            <!--<table>-->
+                                <!--<tbody>-->
+                                    <!--<tr>-->
+                                        <!--&lt;!&ndash;<td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<input value="" class="sum-frm" type="submit">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                                        <!--<td>-->
+                                            <input placeholder="Search..." class="map-search" type="text" [(ngModel)]="filter" (change)="OnSearchTextChanged()" >
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                <!--</tbody>-->
+                            <!--</table>-->
+                        </div>
+                        <div class="map-list">
+                            <button class="map-list-btn" *ngFor="let location of locations | filter:filter | orderby: 'name'" value="{{location.id}}">{{location.name}}</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="menu">
+                    <a (click)="rBreaker()" id="rBreaker">
+                                        <i class="fa fa-gavel"></i>&nbsp;Breaker<span></span>
+                                    </a>
+                    <a (click)="rDisable()" id="rDisable">
+                                        <img src="/assets/icon/Disability.png" />&nbsp;Disable<span></span>
+                                    </a>
+                    <a (click)="rNormal()" id="rNormal">
+                                        <img src="/assets/icon/normal.png" />&nbsp;Normal<span></span>
+                                    </a>
+                    <a (click)="rCopy()" id="rCopy">
+                                        <i class="fa fa fa-clone"></i>&nbsp;Copy<span></span>
+                                    </a>
+                    <a (click)="rPaste()" id="rPaste">
+                                        <i class="fa fa fa-clipboard"></i>&nbsp;Paste<span></span>
+                                    </a>
+                    <a (click)="rDelete()" id="rDelete">
+                                        <i class="fa fa-trash"></i>&nbsp;Delete<span></span>
+                                    </a>
+                </div>
+                <div style="display: none;">
+                    <input type="file" id="load">
+                </div>
+                <div style="display: none;">
+                    <input type="file" id="background">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9"></div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                          <div class="form-footer-button-second">
+                              <!-- <div class="onoffswitch">
+                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+                                  <label class="onoffswitch-label" for="myonoffswitch"> <span class="onoffswitch-inner"></span> <span class="onoffswitch-switch"></span> </label>
+                              </div> -->
+                              <button type="button" class="btn btn-info save-btn map-save" contenteditable="flush" (click)="saveButtonClick()">Save</button>
+                          </div>
+                    </div>
+                    <div class="user-space"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,202 @@
+<div class="header-div">Add/Edit Building</div>
+<div class="main-panel">
+  <form id="building-form" #dataForm="ngForm" name="buildingForm">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group" *ngIf="!isAdd">
+            <div class="row">
+              <label for="inputEmail3" class="col-sm-3 col-md-3 control-label">UID</label>
+              <div class="col-sm-9 col-md-9">
+                  <input type="text" class="form-control guid_input" id="inputEmail3" placeholder="UID" readonly [(ngModel)]="buildingData._id" name='guid'/>
+              </div>
+            </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-3 col-md-3 control-label">Building ID<em>*</em></label>
+            <div class="col-sm-9 col-md-9">
+              <input type="text" class="form-control" id="building_id"
+                     placeholder="Building ID" [(ngModel)]="buildingData.building_id"
+                     name="buildingID" required #buildingID="ngModel">
+              <div *ngIf="buildingID.invalid && (buildingID.dirty || buildingID.touched)"
+                   class="alert alert-danger">
+                <div *ngIf="buildingID.errors.required">
+                  The building id is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="account-type" class="col-sm-3 col-md-3 control-label">Building Name<em>*</em></label>
+            <div class="col-sm-3 col-md-3">
+              <select class="form-control" id="language" name="language" [(ngModel)]="currentLanguage" >
+                <option *ngFor="let lang of languages" value="{{lang._id}}">{{lang.language}}</option>
+              </select>
+            </div>
+            <div class="col-sm-3 col-md-3">
+              <input type="text" class="form-control" id="building_name"
+                     placeholder="Building Name" [(ngModel)]="currentBuildingName"
+                     name="buildingName">
+            </div>
+            <div class="col-sm-3 col-md-3" style="padding-left:0px;text-align:center">
+                <input type="button" (click)="addNameLanguage()" class="btn btn-info btn-add-lang" value="OK">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3 col-md-3">&nbsp;</div>
+            <div class="col-sm-9 col-md-9">
+              <ul class="language-list" *ngIf="(showNameList).length!=0">
+                <li *ngFor="let name of showNameList">
+                  <div class="row add-bg">
+                    <div class="col-3  col-sm-3 col-md-3">{{name.language}}</div>
+                    <div class="col-6  col-sm-6 col-md-6">{{name.name}}</div>
+                    <div class="col-3  col-sm-3 col-md-3">
+                      <input type="button" class="del del_language fa fa-trash-o" (click)="removeNameLanguage(name.id)" value="Delete">
+                    </div>
+                  </div>
+                </li>                
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-3 col-md-3 control-label">Number of Floors<em>*</em></label>
+            <div class="col-sm-9 col-md-9">
+              <input type="number" min="1" onkeypress="return event.charCode >= 48" name="floorsNum" id="floors_num" 
+                          class="form-control" (change)="checkPositive()"
+                          #floorsNum="ngModel" [required]="!buildingData.floors_num" placeholder="Number of Floors"
+                          [(ngModel)]="buildingData.no_of_floors">
+              <div *ngIf="(floorsNum.invalid && (floorsNum.dirty || floorsNum.touched))"
+                  class="alert alert-danger">
+                <div *ngIf="floorsNum.errors.required">
+                  The Number of Floors is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-3 col-md-3 control-label">Opening Hours<em>*</em></label>
+            <div class="col-sm-9 col-md-9">
+              <select class="form-control" [(ngModel)]="buildingData.opening_hours" required #opennigHours="ngModel" name="openingHours">
+                <option *ngFor="let openingHours of timeslots" value="{{openingHours.name}}">{{openingHours.name}}</option>
+              </select>
+              <div *ngIf="opennigHours.invalid && (opennigHours.dirty || opennigHours.touched)"
+                  class="alert alert-danger">
+                <div *ngIf="opennigHours.errors.required">
+                  The Opennig Hours is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-3 col-md-3 control-label">Validity<em>*</em></label>
+            <div class="col-sm-9 col-md-9">
+              <select class="form-control" [(ngModel)]="buildingData.validity" name="validity" required #validity="ngModel">
+                <option *ngFor="let validity of timeslots" value="{{validity.name}}">{{validity.name}}</option>
+              </select>
+              <div *ngIf="validity.invalid && (validity.dirty || validity.touched)"
+                  class="alert alert-danger">
+                <div *ngIf="validity.errors.required">
+                  The validity is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-3 col-md-3 control-label">Country<em>*</em></label>
+            <div class="col-sm-9 col-md-9">
+              <select class="form-control" [(ngModel)]="buildingData.country" name="country" required #country="ngModel">
+                <option *ngFor="let country of countries" value="{{country.country_name}}">{{country.country_name}}</option>
+              </select>
+              <div *ngIf="country.invalid && (country.dirty || country.touched)"
+                  class="alert alert-danger">
+                <div *ngIf="country.errors.required">
+                  The country is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-3 col-md-3 control-label">City</label>
+            <div class="col-sm-9 col-md-9">
+              <input type="text" class="form-control" [(ngModel)]="buildingData.city" name="city" #city="ngModel">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+              <label for="tags" class="col-sm-3 col-md-3 control-label">Tags</label>
+              <div class="col-sm-9 col-md-9">
+                <tags-input class="form-control input-lg" [(ngModel)]="buildingData.tags" name="tags"></tags-input>              
+              </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+              <label for="tags" class="col-md-3 control-label">Logo</label>
+              <div class="col-md-9">
+                  <div class="dropzone" id="fileupload" ></div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+          <div class="form-group">
+              <div class="row">
+                <label for="info" class="col-md-3 control-label">Infomation</label>
+                <div class="col-md-9" style="height:fit-content;">
+                    <quill-editor [options]="editorConfig" name="infomation" [(ngModel)]="buildingData.info" ></quill-editor>
+                </div>
+              </div>
+          </div>
+<!-- 
+          <div class="form-group">
+            <div class="row">
+              <label for="map" class="col-md-3 control-label">Map</label>
+              <div class="col-md-9">
+                  <iframe class="map map-img" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3430.7279830547723!2d76.70914001462778!3d30.697928681649252!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fee932546f4d5%3A0x38cdf0a41b0f6bf2!2sVivek+High+School!5e0!3m2!1sen!2sin!4v1498820155128"></iframe>
+              </div>
+            </div>
+          </div> -->
+         
+          <div class="form-group" style="margin-top:20px;">
+            <div class="row">
+              <label for="status" class="col-3 col-sm-3 col-md-3 control-label">Status<em>*</em></label>
+              <div class="col-9 col-sm-9 col-md-9">              
+                <mat-slide-toggle color="primary" [(ngModel)]="buildingData.status" name="status">
+                  {{buildingData.status?'Enabled':'Disabled'}}
+                </mat-slide-toggle>
+              </div>
+            </div>
+          </div>
+          
+          <div class="spacebottom"></div>
+          <div class="form-group">
+            <div class="row">
+              <label class="col-md-3 control-label"></label>
+              <div class="col-md-9">
+                  <button type="button" (click)="save()" class="btn btn-info btn-save" [disabled]="!dataForm.form.valid">Save</button>
+                  <a [routerLink]="['/customer/home', { outlets: { popup: ['buildings'] } }]" class="btn btn-info btn-cancel">Cancel</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </form>
+</div>

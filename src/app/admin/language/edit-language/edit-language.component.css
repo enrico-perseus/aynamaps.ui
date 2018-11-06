@@ -1,0 +1,33 @@
+.control-label {
+    padding-top: 7px;
+    font-weight: 600;
+}
+
+input[type="checkbox"]  {
+    width: 16px;
+    height: 16px;
+    margin-top: 10px;
+}
+  
+.btn-save {
+    background: #62bb46;
+    float: left !important;
+    margin-left: 0px !important;
+    width: 48%;
+    padding: 10px 10px;
+    font-size: 18px;
+    border: none;
+    margin: 0px 4px;
+    display: table-cell;
+}
+  
+.btn-cancel {
+    background: #f04e29;
+    float: right !important;
+    margin-left: 0px !important;
+    width: 48%;
+    padding: 10px 10px;
+    font-size: 18px;
+    border: none;
+    display: table-cell;
+}

@@ -1,0 +1,127 @@
+<div class="main_container">
+  <div class="">
+      <div class="lrft-side-area " id="another-element">
+          <div class="">
+              <div class="logo"><a [routerLink]="['/customer/home']" class="site_title"><img src="/assets/images/logo-icon.png" alt=""> </a> </div>
+              <br>
+              <!-- sidebar menu -->
+              <div id="sidebar-with-menu">
+                  <ul class="nav sidebar-with-menu" ng-show="UserRole[0].type=='Admin' || (UserRole[0].type=='User' && (UserRole[1].ContentView==true || UserRole[2].ContentModify==true || UserRole[3].ContentDelete==true))">
+                      <li><a (click)="routeItem('buildings')"><img src="/assets/images/building%20icon.png"/>Buildings</a></li>
+                      <li><a (click)="routeItem('floormaps')"><img src="/assets/images/follor-map.png"/>Floors/Maps</a></li>
+                      <li class="submenuli">
+                          <a (click)="toggleShowMenu('location')"><img src="/assets/images/map.png"/>Locations</a>
+                          <ul class="sub-menu" [@slideInOut]="animationLocation">
+                              <li><a (click)="routeItem('pointsofinterest')">Points of Interest</a></li>
+                              <li><a (click)="routeItem('facilities')">Facilities</a></li>
+                              <li><a (click)="routeItem('destinations')">Destinations</a></li>
+                              <li><a (click)="routeItem('flooraccess')">Floors Access</a></li>
+                              <li><a (click)="routeItem('emergencies')">Emergencies</a></li>
+                              <li><a (click)="routeItem('categories')">Categories</a></li>
+                              <li><a (click)="routeItem('aynaroutes')">AYNA Routes</a></li>
+                          </ul>
+                      </li>
+                  </ul>
+                  <ul class="nav sidebar-with-menu" ng-show="UserRole[0].type=='Admin' || (UserRole[0].type=='User' && (UserRole[4].NetworkView==true || UserRole[5].NetworkModify==true || UserRole[6].NetworkDelete==true))">
+                      <li class="submenuli">
+                          <a (click)="toggleShowMenu('kiosk')"><img src="/assets/images/kiosks.png"/>Kiosks</a>
+                          <ul class="sub-menu" [@slideInOut]="animationKiosk">
+                              <li><a (click)="routeItem('players')">Players</a></li>
+                              <li><a (click)="routeItem('groups')">Groups</a></li>
+                          </ul>
+                      </li>
+                      <li><a (click)="routeItem('beacons')"> <img src="/assets/images/beacons.png"/>Beacons</a></li>
+                  </ul>
+                  <ul class="nav sidebar-with-menu" ng-show="UserRole[0].type=='Admin' || (UserRole[0].type=='User' && (UserRole[7].Reports==true ))">
+                      <li class="submenuli">
+                          <a (click)="toggleShowMenu('report')"><img src="/assets/images/repows.png"/>Reports</a>
+                          <ul class="sub-menu" [@slideInOut]="animationReport">
+                              <li><a (click)="routeItem('networkmonitoring')">Network Monitoring</a></li>
+                              <li><a (click)="routeItem('useractivity')">User Activity</a></li>
+                              <li><a (click)="routeItem('topsegments')">Top Segments</a></li>
+                              <li><a (click)="routeItem('kioskperformance')">Kiosks Performance</a></li>
+                              <li><a (click)="routeItem('destinationperformance')">Destinations Performance</a></li>
+                              <li><a (click)="routeItem('locationsperformance')">Locations Performance</a></li>
+                          </ul>
+                      </li>
+                  </ul>
+                  <ul class="nav sidebar-with-menu"  ng-show="UserRole[0].type=='Admin' || (UserRole[0].type=='User' && (UserRole[8].SystemView==true || UserRole[9].SystemModify==true || UserRole[10].SystemDelete==true))">
+
+                      <li class="submenuli">
+                          <a (click)="toggleShowMenu('management')"><img src="/assets/images/system.png"/>System Management</a>
+                          <ul class="sub-menu" [@slideInOut]="animationManage">
+                              <li><a (click)="routeItem('users')">Users</a></li>
+                              <li><a (click)="routeItem('roles')">Roles</a></li>
+                              <li><a (click)="routeItem('timeslots')">Time Slots</a></li>
+                              <li><a (click)="routeItem('settings')">Settings</a></li>
+                          </ul>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="" (click)="toggleShowMenu('')" style="height: 100%">
+      <div class="right-side-area " >
+          <div class="">
+              <div class="top_nav">
+                  <div class="nav_menu">
+                        <nav>
+                          <button id="myelement" ><i class="fa fa-bars" aria-hidden="true"></i></button>
+                           <div class="search-box">
+                                  <table>
+                                      <tbody>
+                                          <tr>
+                                              <td><input type="submit" value="" class="sum-frm"></td>
+                                              <td><input id="textSiteSearch" type="text" placeholder="Search..." (change)="SiteSearch()"  [(ngModel)]="SiteSearchText" class="inp-frm"></td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
+                          <!--sr-box-->
+
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="dropdown nav12">
+                                    <a href="#" data-toggle="dropdown">
+                                        <i class=""><img src="/assets/images/Notification.png" alt=""></i>
+                                        <span class="notification">3</span>
+                                    </a>
+                                    <ul class="dropdown-menu notification">
+                                        <li><a>Help <i class="fa fa-question-circle" aria-hidden="true"></i></a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">User Profile <i class="fa fa-user" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown nav12" role="presentation">
+                                    <a class=""> <i class=""><img src="/assets/images/question-mark.png" alt=""></i> </a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <img src="{{basePath + '/' + currentUser.avatar}}" style="width:35px;height:35px;float:left;" class="img-circle"/> <b class="caret"></b>
+                                    </a>
+                                    <ul  class="dropdown-menu">
+                                        <li ng-if="profile_session_check == 'success'">
+                                                <a [routerLink]="['/customer/home', { outlets: { popup: ['my-account'] } }]">Profile<img src="{{basePath + '/' + currentUser.avatar}}" class="img-circle" style="width:30px; height:30px; border:1px solid #FFF;"/></a>
+                                            </li>
+                                        <li class="divider"></li>
+                                        <li><a (click)="logout()">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                  </div>
+              </div>
+          </div>
+          <div id="searchResult" class="col-md-12 full-width-colum-ber backgroundImagePlace" style="display:none;" >
+                <div *ngFor="let row of data" class='bt-contentnew'>
+                    <a (click)="routeItem(row.route)"><b>{{row.number}}</b> record(s) found in {{row.type}}</a>
+                </div>
+                <div class='count'>Total record(s) found : <b>{{total}}</b></div>
+          </div>
+          <div id="MainDiv" class="col-md-12 full-width-colum-ber backgroundImagePlace" style="padding: 0px" >
+            <router-outlet name="popup"></router-outlet>
+          </div>
+      </div>
+  </div>
+</div>
+

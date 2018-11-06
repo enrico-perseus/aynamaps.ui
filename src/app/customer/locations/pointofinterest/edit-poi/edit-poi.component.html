@@ -1,0 +1,281 @@
+<div class="header-div">Add/Edit POI</div>
+<div class="main-panel">
+  <form id="building-form" #dataForm="ngForm" name="buildingForm">
+    <div class="row">
+      <div class="col-md-6">
+
+          <div class="form-group" *ngIf="!isAdd">
+              <div class="row">
+                <label for="inputEmail3" class="col-sm-3 col-md-3 control-label">UID</label>
+                <div class="col-sm-9 col-md-9">
+                    <input type="text" class="form-control guid_input" id="inputEmail3" placeholder="UID"
+                     readonly [(ngModel)]="poiData._id" name='guid'/>
+                </div>
+              </div>
+          </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-3 col-md-3 control-label">POI Code<em>*</em></label>
+            <div class="col-sm-9 col-md-9">
+              <input type="text" class="form-control" id="poi-id"
+                     placeholder="POI Code" [(ngModel)]="poiData.poi_number"
+                     name="poiCode" required #poiCode="ngModel">
+              <div *ngIf="poiCode.invalid && (poiCode.dirty || poiCode.touched)"
+                   class="alert alert-danger">
+                <div *ngIf="poiCode.errors.required">
+                  The POI Code is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label for="account-type" class="col-sm-3 col-md-3 control-label">POI Name<em>*</em></label>
+            <div class="col-sm-3 col-md-3">
+              <select class="form-control" id="language" name="language" [(ngModel)]="currentLanguage" >
+                <option *ngFor="let lang of languages" value="{{lang._id}}">{{lang.language}}</option>
+              </select>
+            </div>
+            <div class="col-sm-3 col-md-3">
+              <input type="text" class="form-control" id=""
+                     placeholder="POI Name" [(ngModel)]="currentPoiName"
+                     name="buildingName">
+            </div>
+            <div class="col-sm-3 col-md-3" style="padding-left:0px; text-align:center">
+              <input type="button" (click)="addPoiNameLanguage()" class="btn btn-info btn-add-lang" value="OK">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">&nbsp;</div>
+            <div class="col-md-9">
+              <ul class="language-list" *ngIf="(showNameList).length!=0">
+                <li *ngFor="let name of showNameList">
+                  <div class="row add-bg">
+                    <div class="col-3  col-sm-3 col-md-3">{{name.language}}</div>
+                    <div class="col-6  col-sm-6 col-md-6">{{name.name}}</div>
+                    <div class="col-3  col-sm-3 col-md-3">
+                      <input type="button" class="del del_language fa fa-trash-o" (click)="removePoiNameLanguage(name.id)" value="Delete">
+                    </div>
+                  </div>
+                </li>                
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-3 col-md-3 control-label">Category<em>*</em></label>
+            <div class="col-sm-9 col-md-9">
+              <select class="form-control" id="category" [(ngModel)]="poiData.category"
+                     name="category" required #category="ngModel">
+                  <option value="">Select</option>
+                  <option *ngFor="let category of categoryList" value="{{category._id}}">{{ category.name }}</option>
+              </select>
+              <div *ngIf="category.invalid && (category.dirty || category.touched)"
+                   class="alert alert-danger">
+                <div *ngIf="category.errors.required">
+                  The Category is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-3 col-md-3 control-label">Current Status<em>*</em></label>
+            <div class="col-sm-9 col-md-9">
+              <select class="form-control" id="current_status" [(ngModel)]="poiData.current_status"
+                  name="currentStatus" required #currentStatus="ngModel">
+                  <option value="">Select</option>
+                  <option value="1">Opened</option>
+                  <option value="2">Coming soon</option>
+                  <option value="3">Closed</option>
+              </select>
+              <div *ngIf="currentStatus.invalid && (currentStatus.dirty || currentStatus.touched)"
+                   class="alert alert-danger">
+                <div *ngIf="currentStatus.errors.required">
+                  The Current Status is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-3 col-md-3 control-label">Parent</label>
+            <div class="col-sm-9 col-md-9">
+              <input type="text" class="form-control" id="parent"
+                     placeholder="Parent" [(ngModel)]="poiData.parent"
+                     name="parent">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-3 col-md-3 control-label">Opening Hours<em>*</em></label>
+            <div class="col-sm-9 col-md-9">
+              <select class="form-control" id="opening-hours" [(ngModel)]="poiData.opening_hours"
+                name="openingHours" required #openingHours="ngModel">
+                <option *ngFor="let openingHours of timeslots" value="{{openingHours.name}}">{{openingHours.name}}</option>
+              </select>
+              <div *ngIf="openingHours.invalid && (openingHours.dirty || openingHours.touched)"
+                   class="alert alert-danger">
+                <div *ngIf="openingHours.errors.required">
+                  The Opening Hours is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-sm-3 col-md-3 control-label">Validity<em>*</em></label>
+            <div class="col-sm-9 col-md-9">
+              <select class="form-control" id="validity" [(ngModel)]="poiData.validity"
+                name="validity" required #validity="ngModel">
+                <option *ngFor="let validity of timeslots" value="{{validity.name}}">{{validity.name}}</option>
+              </select>
+              <div *ngIf="validity.invalid && (validity.dirty || validity.touched)"
+                   class="alert alert-danger">
+                <div *ngIf="validity.errors.required">
+                  The Validity is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+              <label for="tags" class="col-sm-3 col-md-3 control-label">Tags</label>
+              <div class="col-sm-9 col-md-9">
+                <tags-input class="form-control input-lg" [(ngModel)]="poiData.tags" name="tags"></tags-input>              
+              </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="row">
+              <label for="tags" class="col-md-3 control-label">Logo</label>
+              <div class="col-md-9">
+                  <div class="dropzone" id="fileupload" ></div>
+              </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+              <label for="tags" class="col-md-3 control-label">POI Icon<em>*</em></label>
+              <div class="col-md-9">
+                  <div class="dropzone" id="poiiconupload" ></div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+          <div class="form-group">
+              <div class="row">
+                <label for="info" class="col-sm-3 col-md-3 control-label">Website</label>
+                <div class="col-sm-9 col-md-9">
+                  <input type="text" class="form-control" id="website"
+                      placeholder="Website" [(ngModel)]="poiData.website"
+                      name="website" #website="ngModel" pattern="^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}[/]{0,1}">
+                    <div *ngIf="website.invalid && (website.dirty || website.touched)"
+                      class="alert alert-danger">
+                    <div *ngIf="website.errors.pattern">
+                        Website URL should be http://www.aynamaps.com/.
+                    </div>
+                  </div>  
+                </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <div class="row">
+                <label for="info" class="col-sm-3 col-md-3 control-label">Email</label>
+                <div class="col-sm-9 col-md-9">
+                  <input type="text" class="form-control" id="email"
+                      placeholder="Email" [(ngModel)]="poiData.email"
+                      name="email" #email="ngModel" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                      <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                          class="alert alert-danger">
+                        <div *ngIf="email.errors.pattern">
+                            Email should be user@ayna.com.
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <div class="row">
+                <label for="info" class="col-sm-3 col-md-3 control-label">Phone</label>
+                <div class="col-sm-9 col-md-9">
+                  <input type="text" class="form-control" id="phone"
+                      placeholder="Phone" [(ngModel)]="poiData.phone"
+                      name="phone" #phone="ngModel" pattern="^[0-9+-]{10,15}$">
+                      <div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+                      class="alert alert-danger">
+                    <div *ngIf="phone.errors.pattern">
+                        Phone number should be 8615142023873.
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <div class="row">
+                <label for="info" class="col-md-3 control-label">Infomation</label>
+                <div class="col-md-9" style="height: fit-content;">
+                    <quill-editor [options]="editorConfig"  name="infomation" [(ngModel)]="poiData.info" ></quill-editor>
+                </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <label for="map" class="col-md-3 control-label">Map<em>*</em></label>
+              <div class="col-md-9">
+                  <div id="imageappend" align="center ">
+                      <img  id="image" src="{{MapType}}" width="100%" (load)="initaiteMap()" /><br/>
+                  </div>
+                 
+                  <input type="hidden" name="latitude" id="poimapX" [(ngModel)]="poiData.latitude" >
+                  <input type="hidden" name="longitude" id="poimapY" [(ngModel)]="poiData.longitude">
+              </div>
+            </div>
+          </div>
+         
+          <div class="form-group" style="margin-top:20px;">
+            <div class="row">
+              <label for="status" class="col-3 col-sm-3 col-md-3 control-label">Status<em>*</em></label>
+              <div class="col-9 col-sm-9 col-md-9">              
+                <mat-slide-toggle color="primary" [(ngModel)]="poiData.status" name="status">
+                  {{poiData.status?'Enabled':'Disabled'}}
+                </mat-slide-toggle>
+              </div>
+            </div>
+          </div>
+          <div class="spacebottom"></div>
+          <div class="form-group">
+            <div class="row">
+              <label class="col-md-3 control-label"></label>
+              <div class="col-md-9">
+                  <button type="button" (click)="save()" class="btn btn-info btn-save" [disabled]="!dataForm.form.valid">Save</button>
+                  <a [routerLink]="['/customer/home', { outlets: { popup: ['pointsofinterest'] } }]" class="btn btn-info btn-cancel">Cancel</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </form>
+</div>

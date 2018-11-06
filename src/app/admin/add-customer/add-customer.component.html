@@ -1,0 +1,400 @@
+<app-admin-navbar></app-admin-navbar>
+<div class="header-div">New Account</div>
+<div class="main-panel">
+  <form id="customer-form" #dataForm="ngForm" (submit)="save()" name="customerForm">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="row">
+            <label for="account-name" class="col-md-3 control-label">Account Name<em>*</em></label>
+            <div class="col-md-9">
+              <input type="text" class="form-control" id="account-name"
+                     placeholder="Account Name" [(ngModel)]="customerData.account_name"
+                     name="accountName" required #accountName="ngModel">
+              <div *ngIf="accountName.invalid && (accountName.dirty || accountName.touched)"
+                   class="alert alert-danger">
+                <div *ngIf="accountName.errors.required">
+                  The Account Name is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="account-type" class="col-md-3 control-label">Account Type<em>*</em></label>
+            <div class="col-md-9">
+              <select class="form-control" id="account-type"
+                      [(ngModel)]="customerData.account_type" #accountType="ngModel"
+                      name="accountType" required>
+                <option *ngFor="let typeObj of accountTypes" value="{{typeObj.name}}">{{typeObj.name}}</option>
+              </select>
+              <div *ngIf="accountType.invalid && (accountType.dirty || accountType.touched)"
+                   class="alert alert-danger">
+                <div *ngIf="accountType.errors.required">
+                  The Account Type is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="license-type" class="col-md-3 control-label">License Type<em>*</em></label>
+            <div class="col-md-9">
+              <select class="form-control" [(ngModel)]="customerData.license_type" id="license-type"
+                      name="licenseType" required #licenseType="ngModel">
+                <option *ngFor="let typeObj of licenseTypes" value="{{typeObj.name}}">{{typeObj.name}}</option>
+              </select>
+              <div *ngIf="licenseType.invalid && (licenseType.dirty || licenseType.touched)"
+                 class="alert alert-danger">
+                <div *ngIf="licenseType.errors.required">
+                  The License Type is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="subscription-type" class="col-md-3 control-label">Subscritpion Type<em>*</em></label>
+            <div class="col-md-9">
+              <select class="form-control" [(ngModel)]="customerData.subscription_type" id="subscription-type"
+                      name="subscriptionType" required #subscriptionType="ngModel">
+                <option *ngFor="let typeObj of subscriptionTypes" value="{{typeObj.name}}">{{typeObj.name}}</option>
+              </select>
+              <div *ngIf="subscriptionType.invalid && (subscriptionType.dirty || subscriptionType.touched)"
+                 class="alert alert-danger">
+                <div *ngIf="subscriptionType.errors.required">
+                  The Subscription Type is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label for="kiosk-values" class="col-md-3 col-xs-12 control-label">Kiosks<em>*</em></label>
+            <div class="col-md-6 col-xs-7">
+              <input type="number" min="1" onkeypress="return event.charCode >= 48" 
+                     name="kiosk" id="kiosk-values" [disabled]="customerData.is_kiosk_unlimited"
+                     class="form-control"  (change)="checkPositive()"
+                     #kioskValue="ngModel" [required]="!customerData.is_kiosk_unlimited" placeholder="Kiosks"
+                     [(ngModel)]="customerData.kiosk_value">
+              <div *ngIf="kioskValue.invalid && (kioskValue.dirty || kioskValue.touched)"
+                   class="alert alert-danger">
+                <div *ngIf="kioskValue.errors.required">
+                  The Kiosk Value is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-1 col-xs-2">
+              <input type="checkbox" class="form-control"
+                     name="kiosk_unlimit" id="kiosk-unlimit"
+                     [(ngModel)]="customerData.is_kiosk_unlimited"
+                     />
+            </div>
+            <label for="kiosk-unlimit" class="col-md-2 col-xs-3 control-label">Unlimited</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="destination-values" class="col-md-3 col-xs-12 control-label">Destinations<em>*</em></label>
+            <div class="col-md-6 col-xs-7">
+              <input type="number" min="1" onkeypress="return event.charCode >= 48" 
+                     name="destination_value" id="destination-values"  (change)="checkPositive()"
+                     [disabled]="customerData.is_destination_unlimited"
+                     #destinationValue="ngModel" [required]="!customerData.is_destination_unlimited" placeholder="Destinations"
+                     [(ngModel)]="customerData.destination_value" class="form-control">
+              <div *ngIf="destinationValue.invalid && (destinationValue.dirty || destinationValue.touched)"
+                   class="alert alert-danger">
+                <div *ngIf="destinationValue.errors.required">
+                  The Destination Value is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-1 col-xs-2">
+              <input type="checkbox" class="form-control"
+                     name="destination_unlimit" id="destination-unlimit"
+                     [(ngModel)]="customerData.is_destination_unlimited">
+            </div>
+            <label for="destination-unlimit" class="col-md-2 col-xs-3 control-label">Unlimited</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="building3" class="col-md-3 col-xs-12 control-label">Buildings<em>*</em></label>
+            <div class="col-md-6 col-xs-7">
+              <input type="number" min="1" onkeypress="return event.charCode >= 48" 
+                     class="form-control" name="buildingValue" (change)="checkPositive()"
+                     id="building3" placeholder="Buildings" [disabled]="customerData.is_building_unlimited"
+                     [(ngModel)]="customerData.building_value" [required]="!customerData.is_building_unlimited"
+                     #buildingValue="ngModel">
+              <div *ngIf="buildingValue.invalid && (buildingValue.dirty || buildingValue.touched)"
+                   class="alert alert-danger">
+                <div *ngIf="buildingValue.errors.required">
+                  The Building is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-1 col-xs-2">
+              <input type="checkbox" class="form-control"
+                     name="building_unlimited" id="building-unlimited"
+                     [(ngModel)]="customerData.is_building_unlimited">
+            </div>
+            <label for="building-unlimited" class="col-md-2 col-xs-3 control-label">Unlimited</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="users-value" class="col-md-3 col-xs-12 control-label">Users<em>*</em></label>
+            <div class="col-md-6 col-xs-7">
+              <input type="number" min="1" onkeypress="return event.charCode >= 48" 
+                     class="form-control" id="users-value" name="userValue" 
+                     placeholder="Users"  (change)="checkPositive()"
+                     [(ngModel)]="customerData.user_value" [disabled]="customerData.is_user_unlimited"
+                     [required]="!customerData.is_user_unlimited"
+                     #userValue="ngModel"
+              >
+              <div *ngIf="userValue.invalid && (userValue.dirty || userValue.touched)"
+                   class="alert alert-danger">
+                <div *ngIf="userValue.errors.required">
+                  The User is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-1 col-xs-2">
+              <input type="checkbox" class="form-control" id="user-unlimited" name="user_unlimited"
+                     [(ngModel)]="customerData.is_user_unlimited">
+            </div>
+            <label for="user-unlimited" class="col-md-2 col-xs-3 control-label">Unlimited</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="subscription-start-date" class="col-md-3 control-label">Subscription Start Date<em>*</em></label>
+            <div class="col-md-9">
+              <dx-date-box type="date" #subscriptionStartDate="ngModel"
+                           name="subscriptionStartDate" id="subscription-start-date" class="form-control"
+                           [(ngModel)]="customerData.subscription_start_date" [max]="customerData.subscription_end_date"></dx-date-box>
+              <div *ngIf="subscriptionStartDate.invalid && (subscriptionStartDate.dirty || subscriptionStartDate.touched)"
+                 class="alert alert-danger">
+                <div *ngIf="subscriptionStartDate.errors.required">
+                  The Subscription start date is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="subscription-end-date" class="col-md-3 control-label">Subscription End Date<em>*</em></label>
+            <div class="col-md-9">
+              <dx-date-box type="date" #subscriptionEndDate="ngModel"
+                           name="subscriptionEndDate" id="subscription-end-date" class="form-control"
+                           [(ngModel)]="customerData.subscription_end_date" [min]="customerData.subscription_start_date"></dx-date-box>
+              <div *ngIf="subscriptionEndDate.invalid && (subscriptionEndDate.dirty || subscriptionEndDate.touched)"
+                 class="alert alert-danger">
+                <div *ngIf="subscriptionEndDate.errors.required">
+                The Subscription end date is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="form-group">
+          <div class="row">
+            <label for="validity-start-date" class="col-md-3 control-label">Validity Start Date<em>*</em></label>
+            <div class="col-md-9">
+              <dx-date-box type="date" #validityStartDate="ngModel"
+                           name="validityStartDate" id="validity-start-date" class="form-control"
+                           [(ngModel)]="customerData.validity_start_date" [max]="customerData.validity_end_date"></dx-date-box>
+              <div *ngIf="validityStartDate.invalid && (validityStartDate.dirty || validityStartDate.touched)"
+                 class="alert alert-danger">
+                <div *ngIf="validityStartDate.errors.required">
+                  The Validity start date is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="validity-end-date" class="col-md-3 control-label">Validity End Date<em>*</em></label>
+            <div class="col-md-9">
+              <dx-date-box type="date" #validityEndDate="ngModel"
+                           name="validityEndDate" id="validity-end-date" class="form-control"
+                           [(ngModel)]="customerData.validity_end_date" [min]="customerData.validity_start_date"></dx-date-box>
+              <div *ngIf="validityEndDate.invalid && (validityEndDate.dirty || validityEndDate.touched)"
+                 class="alert alert-danger">
+                <div *ngIf="validityEndDate.errors.required">
+                  The Validity end date is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="form-group">
+          <div class="row">
+            <label for="language" class="col-md-3 control-label">Language<em>*</em></label>
+            <div class="col-md-9">
+              <ss-multiselect-dropdown name="language" [options]="myOptions" [(ngModel)]="customerData.language" #language="ngModel"
+                [settings]="mySettings" [texts]="myTexts" required [ngModelOptions]="{standalone: true}" ></ss-multiselect-dropdown>
+              <!--
+              <div *ngIf="language.invalid && (language.dirty || language.touched)" class="alert alert-danger">
+                <div *ngIf="language.errors.required">
+                  Language is required.
+                </div>
+              </div>
+            -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="row">
+            <label for="sla-level" class="col-md-3 control-label">SLA Level<em>*</em></label>
+            <div class="col-md-9">
+              <select class="form-control" [(ngModel)]="customerData.sla_level"
+                      name="slaLavel" id="sla-level" #slaLevel="ngModel"
+                      required>                
+                <option *ngFor="let typeObj of slaLevels" value="{{typeObj.name}}">{{typeObj.name}}</option>
+              </select>
+              <div *ngIf="slaLevel.invalid && (slaLevel.dirty || slaLevel.touched)"
+                 class="alert alert-danger">
+                <div *ngIf="slaLevel.errors.required">
+                  The SLA Level is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="inputPassword3" class="col-md-3 control-label"></label>
+            <div class="col-md-9">
+              <div class="dropzone" id="fileupload" ></div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="user-type" class="col-md-3 control-label">Contact Person<em>*</em></label>
+            <div class="col-md-9">
+              <input type="text" class="form-control" [(ngModel)]="customerData.user_type"
+                     name="userType" placeholder="Contact Person" id="user-type" #userType="ngModel" required>
+              <div *ngIf="userType.invalid && (userType.dirty || userType.touched)"
+                     class="alert alert-danger">
+                  <div *ngIf="userType.errors.required">
+                    The Contact Person is required.
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="phone-number" class="col-md-3 control-label">Phone Number<em>*</em></label>
+            <div class="col-md-9">
+              <input type="text" class="form-control" [(ngModel)]="customerData.phone_number"
+                     name="phoneNumber" placeholder="Phone Number" id="phone-number" #phoneNumber="ngModel" required>
+              <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)"
+                     class="alert alert-danger">
+                  <div *ngIf="phoneNumber.errors.required">
+                    The Phone Number is required.
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="email" class="col-md-3 control-label">Email Address<em>*</em></label>
+            <div class="col-md-9">
+              <input type="email" class="form-control" [(ngModel)]="customerData.email"
+                     name="email" placeholder="Email Address" id="email" #email="ngModel" required>
+              <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                     class="alert alert-danger">
+                  <div *ngIf="email.errors.required">
+                    The Email is required.
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="po-box" class="col-md-3 control-label">Po Box<em>*</em></label>
+            <div class="col-md-9">
+              <input type="text" class="form-control" [(ngModel)]="customerData.po_box"
+                     name="POBox" placeholder="Po Box" id="po-box" #POBox="ngModel" required>
+              <div *ngIf="POBox.invalid && (POBox.dirty || POBox.touched)"
+                     class="alert alert-danger">
+                  <div *ngIf="POBox.errors.required">
+                    The Po Box is required.
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="company-address" class="col-md-3 control-label">Company Address<em>*</em></label>
+            <div class="col-md-9">
+              <input type="text" class="form-control" [(ngModel)]="customerData.company_address"
+                     name="companyAddress" placeholder="Company Address" id="company-address" #companyAddress="ngModel" required>
+              <div *ngIf="companyAddress.invalid && (companyAddress.dirty || companyAddress.touched)"
+                     class="alert alert-danger">
+                  <div *ngIf="companyAddress.errors.required">
+                    The Company Address is required.
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="fax" class="col-md-3 control-label">Fax</label>
+            <div class="col-md-9">
+              <input type="text" class="form-control" [(ngModel)]="customerData.fax"
+                     name="fax" placeholder="Fax" id="fax">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label for="status" class="col-md-3 control-label">Status<em>*</em></label>
+            <div class="col-md-9">              
+              <mat-slide-toggle color="primary" [(ngModel)]="customerData.status" name="status">
+                {{customerData.status?'Enabled':'Disabled'}}
+              </mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+              <label for="3dtour" class="col-md-3 control-label">3D Tour<em>*</em></label>
+              <div class="col-md-9">              
+                <mat-slide-toggle color="primary" [(ngModel)]="customerData.tour_3d" name="tour_3d">
+                    {{customerData.tour_3d?'Enabled':'Disabled'}}
+                </mat-slide-toggle>
+              </div>
+            </div>
+        </div>
+        <div class="spacebottom"></div>
+        <div class="form-group">
+          <div class="row">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-9">
+                <button type="submit" class="btn btn-info btn-save" [disabled]="!dataForm.form.valid">Save</button>
+                <button type="submit" class="btn btn-info btn-cancel" (click)="cancel()">Cancel</button>                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

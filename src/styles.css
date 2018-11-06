@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.img-circle{
+  border-radius:50%
+}
+
+.mr-10{
+  margin-right: 10px;
+}
+
+.inner-addon {
+  position: relative;
+}
+.inner-addon .fa {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+.left-addon .fa  { left:  0;}
+.right-addon .fa { right: 0;}
+
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+
+.ngx-pagination .current {
+  background: gray !important;
+}
+
+.angular-google-recaptcha-container > div {
+  width: 100% !important;
+}

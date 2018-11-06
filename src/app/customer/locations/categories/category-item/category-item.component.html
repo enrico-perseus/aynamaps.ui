@@ -1,0 +1,31 @@
+<ng-template [ngIf]="category.isEdit==true" [ngIfElse]="staticRow">
+    <td>{{category._id}}</td>
+    <td>
+      <input style="text-align:center;" type="text" class="form-control" [(ngModel)]="category.name" />
+    </td>
+    <td>{{category.createdBy.email}}</td>
+    <td>0</td>
+    <td>
+        <select data-tabullet-map="status" name="Status" style="text-align-last: center;" class="form-control" [(ngModel)]="category.status">
+          <option value="Enable">Enabled</option>
+          <option value="Disable">Disabled</option>
+        </select>
+    </td>
+    <td><button class="btn btn-success save_category_info" (click)="saveCategory()" >Save</button>
+    </td>
+</ng-template>
+
+<ng-template #staticRow>
+    <td>{{category._id}}</td>
+    <td>
+      {{category.name}}
+    </td>
+    <td>
+      {{category.usage.use_number}}  
+    </td>
+    <td>{{category.createdBy.email}}</td>
+    <td>
+        <span class="{{category.status == 'Enable'?'Enable':'Disable'}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    </td>
+    <td></td>
+</ng-template>

@@ -1,0 +1,299 @@
+<form id="language-form" #dataForm="ngForm" (submit)="save()" name="languageForm">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="row">
+                    <label for="language" class="col-md-3 control-label">Language<em>*</em></label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="language"
+                            placeholder="Language" [(ngModel)]="languageData.language"
+                            name="language" required #language="ngModel">
+                        <div *ngIf="language.invalid && (language.dirty || language.touched)" class="alert alert-danger">
+                            <div *ngIf="language.errors.required">
+                                'Language' is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="direction" class="col-md-3 control-label">Language Direction<em>*</em></label>
+                    <div class="col-md-9">              
+                        <mat-slide-toggle color="primary" [(ngModel)]="languageData.direction" name="direction">
+                            {{languageData.direction?'LEFT to RIGHT':'RIGHT to LEFT'}}
+                        </mat-slide-toggle>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="inspire_me" class="col-md-3 control-label">Inspire me<em>*</em></label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="inspire_me"
+                            placeholder="Inspire me" [(ngModel)]="languageData.inspire_me"
+                            name="inspire_me" required #inspireMe="ngModel">
+                        <div *ngIf="inspireMe.invalid && (inspireMe.dirty || inspireMe.touched)" class="alert alert-danger">
+                            <div *ngIf="inspireMe.errors.required">
+                                'Inspire me' is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="search" class="col-md-3 control-label">Search<em>*</em></label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="search"
+                            placeholder="Search" [(ngModel)]="languageData.search"
+                            name="search" required #search="ngModel">
+                        <div *ngIf="search.invalid && (search.dirty || search.touched)" class="alert alert-danger">
+                            <div *ngIf="search.errors.required">
+                                'Search' is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                    <div class="row">
+                        <label for="easy_access" class="col-md-3 control-label">Easy-access<em>*</em></label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="easy_access"
+                                placeholder="Easy-access" [(ngModel)]="languageData.easy_access"
+                                name="easy_access" required #easyAccess="ngModel">
+                            <div *ngIf="easyAccess.invalid && (easyAccess.dirty || easyAccess.touched)" class="alert alert-danger">
+                                <div *ngIf="easyAccess.errors.required">
+                                    'Easy-access' is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="destination" class="col-md-3 control-label">You have reached the destination<em>*</em></label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="destination"
+                            placeholder="You have reached the destination" [(ngModel)]="languageData.destination"
+                            name="destination" required #destination="ngModel">
+                        <div *ngIf="destination.invalid && (destination.dirty || destination.touched)" class="alert alert-danger">
+                            <div *ngIf="destination.errors.required">
+                                'You have reached the destination' is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="top5" class="col-md-3 control-label">Top 5<em>*</em></label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="top5"
+                            placeholder="Top 5" [(ngModel)]="languageData.top5"
+                            name="top5" required #top5="ngModel">
+                        <div *ngIf="top5.invalid && (top5.dirty || top5.touched)" class="alert alert-danger">
+                            <div *ngIf="top5.errors.required">
+                                'Top 5' is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="downloading" class="col-md-3 control-label">Downloading<em>*</em></label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="downloading"
+                            placeholder="Downloading" [(ngModel)]="languageData.downloading"
+                            name="downloading" required #downloading="ngModel">
+                        <div *ngIf="downloading.invalid && (downloading.dirty || downloading.touched)" class="alert alert-danger">
+                            <div *ngIf="downloading.errors.required">
+                                'Downloading' is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="connect" class="col-md-3 control-label">Connect<em>*</em></label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="connect"
+                            placeholder="Connect" [(ngModel)]="languageData.connect"
+                            name="connect" required #connect="ngModel">
+                        <div *ngIf="connect.invalid && (connect.dirty || connect.touched)" class="alert alert-danger">
+                            <div *ngIf="connect.errors.required">
+                                'Connect' is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="save_lang" class="col-md-3 control-label">Save<em>*</em></label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="save_lang"
+                            placeholder="Save" [(ngModel)]="languageData.save_lang"
+                            name="save_lang" required #saveLang="ngModel">
+                        <div *ngIf="saveLang.invalid && (saveLang.dirty || saveLang.touched)" class="alert alert-danger">
+                            <div *ngIf="saveLang.errors.required">
+                                'Save' is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="row">
+                    <label for="cancel_lang" class="col-md-3 control-label">Cancel<em>*</em></label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="cancel_lang"
+                            placeholder="Cancel" [(ngModel)]="languageData.cancel_lang"
+                            name="cancel_lang" required #cancelLang="ngModel">
+                        <div *ngIf="cancelLang.invalid && (cancelLang.dirty || cancelLang.touched)" class="alert alert-danger">
+                            <div *ngIf="cancelLang.errors.required">
+                                'Cancel' is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="resync" class="col-md-3 control-label">Re-sync<em>*</em></label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="resync"
+                            placeholder="Re-sync" [(ngModel)]="languageData.resync"
+                            name="resync" required #resync="ngModel">
+                        <div *ngIf="resync.invalid && (resync.dirty || resync.touched)" class="alert alert-danger">
+                            <div *ngIf="resync.errors.required">
+                                'Re-sync' is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="release_license" class="col-md-3 control-label">Release license<em>*</em></label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="release_license"
+                            placeholder="Release license" [(ngModel)]="languageData.release_license"
+                            name="release_license" required #releaseLicense="ngModel">
+                        <div *ngIf="releaseLicense.invalid && (releaseLicense.dirty || releaseLicense.touched)" class="alert alert-danger">
+                            <div *ngIf="releaseLicense.errors.required">
+                                'Release license' is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                    <div class="row">
+                        <label for="lang" class="col-md-3 control-label">Language<em>*</em></label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="lang"
+                                placeholder="Language" [(ngModel)]="languageData.lang"
+                                name="lang" required #lang="ngModel">
+                            <div *ngIf="lang.invalid && (lang.dirty || lang.touched)" class="alert alert-danger">
+                                <div *ngIf="lang.errors.required">
+                                    'Language' is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="default_view" class="col-md-3 control-label">Default view<em>*</em></label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="default_view"
+                            placeholder="Default view" [(ngModel)]="languageData.default_view"
+                            name="default_view" required #defaultView="ngModel">
+                        <div *ngIf="defaultView.invalid && (defaultView.dirty || defaultView.touched)" class="alert alert-danger">
+                            <div *ngIf="defaultView.errors.required">
+                                'Default view' is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="smart_mode" class="col-md-3 control-label">Smart Mode<em>*</em></label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="smart_mode"
+                            placeholder="Smart Mode" [(ngModel)]="languageData.smart_mode"
+                            name="smart_mode" required #smartMode="ngModel">
+                        <div *ngIf="smartMode.invalid && (smartMode.dirty || smartMode.touched)" class="alert alert-danger">
+                            <div *ngIf="smartMode.errors.required">
+                                'Smart Mode' is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="normal_mode" class="col-md-3 control-label">Normal Mode<em>*</em></label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="normal_mode"
+                            placeholder="Normal Mode" [(ngModel)]="languageData.normal_mode"
+                            name="normal_mode" required #normalMode="ngModel">
+                        <div *ngIf="normalMode.invalid && (normalMode.dirty || normalMode.touched)" class="alert alert-danger">
+                            <div *ngIf="normalMode.errors.required">
+                                'Normal Mode' is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="player_id" class="col-md-3 control-label">Player ID<em>*</em></label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="player_id"
+                            placeholder="Player ID" [(ngModel)]="languageData.player_id"
+                            name="player_id" required #playerID="ngModel">
+                        <div *ngIf="playerID.invalid && (playerID.dirty || playerID.touched)" class="alert alert-danger">
+                            <div *ngIf="playerID.errors.required">
+                                'Player ID' is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="default_language" class="col-md-3 control-label">Default Language<em>*</em></label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="default_language"
+                            placeholder="Default Language" [(ngModel)]="languageData.default_language"
+                            name="default_language" required #defaultLanguage="ngModel">
+                        <div *ngIf="defaultLanguage.invalid && (defaultLanguage.dirty || defaultLanguage.touched)" class="alert alert-danger">
+                            <div *ngIf="defaultLanguage.errors.required">
+                                'Default Language' is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="spacebottom"></div>
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-9">
+                        <button type="submit" class="btn btn-info btn-save" [disabled]="!dataForm.form.valid">Save</button>
+                        <button type="submit" class="btn btn-info btn-cancel" (click)="cancel()">Cancel</button>                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

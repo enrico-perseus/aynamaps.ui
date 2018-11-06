@@ -1,0 +1,43 @@
+<div class="login-page">
+  <div class="logo-login"></div>
+  <div class="login-form">
+
+    <img src="/assets/images/logo-white-login.png" alt="" style="max-width: 250px; width:100%;">
+
+    <form (submit)="forgotPass($event)" name="loginForm" #loginForm="ngForm">
+      <div class="form-group" style="margin-top: 42px;">
+        <label for="email" id="exampleInputEmail1" style="height: 57px;width: 57px;position:  absolute;border-radius:  50%;left: 1px;">
+        </label>
+        <input type="email" name="email" class="form-control" style="background-color:#4d5562" placeholder="Email address" [(ngModel)]="email"
+          id="email" required/>
+      </div>
+      <!-- 
+      <div class="g-recaptcha" style="width:272px; height:78px; margin:14px 0px -10px 0px;" data-sitekey="6LeoJ0MUAAAAAMo5K_pyroLDqoL_Vwo13Zju61wx"></div>
+      -->
+      <div class="form-group" style="margin-top:10px;">
+        <recaptcha
+          style="text-align:center;"
+            [(ngModel)]="myRecaptcha"
+            (scriptLoad)="onScriptLoad()"
+            (scriptError)="onScriptError()"
+            name="myRecaptcha"
+        ></recaptcha>
+      </div>
+
+      <button class="btn btn-default" [disabled]="!loginForm.form.valid">
+        Reset Password
+      </button>
+      <div class="col-md-12">
+        <a href="/" class="forgot-link">Back To Login</a>
+      </div>
+    </form>
+
+    <div class="copyright">
+      <div class="container-fluid">
+        <div class="row">
+          <p>Copyright Ayna {{CurrentYear}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

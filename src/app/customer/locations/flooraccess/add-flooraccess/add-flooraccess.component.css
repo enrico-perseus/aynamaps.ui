@@ -1,0 +1,125 @@
+.main-panel{
+  padding: 10px;
+  margin: 10px;
+  background-color: white;
+}
+
+.main-panel div.row{
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.header-div {
+  background-color: #383838;
+  color: white;
+  line-height: 55px;
+  padding-left: 20px;
+  font-size: 23px;
+  font-weight: 600;
+}
+
+.control-label {
+  padding-top: 7px;
+  font-weight: 600;
+}
+
+.dx-datebox {
+  width: 100% !important;
+}
+
+input[type="checkbox"]  {
+  width: 16px;
+  height: 16px;
+  margin-top: 10px;
+}
+
+.dropzone {
+  border: 1px solid #DDD;
+  min-height: 190px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #fff;
+  background: url('/assets/images/brows-btn.png') center 30px no-repeat;
+  padding: 0px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn-save {
+  background: #62bb46;
+  float: left !important;
+  margin-left: 0px !important;
+  width: 48%;
+  padding: 10px 10px;
+  font-size: 18px;
+  border: none;
+  margin: 0px 4px;
+  display: table-cell;
+}
+
+.btn-add-lang {
+  background: #62bb46;
+  float: left !important;
+  margin-left: 0px !important;
+  width: 48%;
+  padding: 5px 5px;
+  font-size: 16px;
+  border: none;
+  margin: 0px 4px;
+  margin-top: 2px;
+  display: table-cell;
+}
+
+.btn-cancel {
+  background: #f04e29;
+  float: right !important;
+  margin-left: 0px !important;
+  width: 48%;
+  padding: 10px 10px;
+  font-size: 18px;
+  border: none;
+  display: table-cell;
+}
+
+.dropdown-menu {
+  width: 100% !important;
+}
+.add-bg {
+  background-color: #081a29 !important;
+  padding: 10px 0px 5px 10px !important;
+  border-radius: 10px !important;
+  margin-top: 5px;
+  color:#fff;
+  font-weight: bold;
+}
+
+.language-list {
+display: block;
+list-style-type: none;
+margin-top: 1em;
+margin-bottom: 1 em;
+margin-left: 0;
+margin-right: 0;
+padding-left: 0;
+}
+
+.tab {
+/*   color: #555;
+  cursor: default;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent; */
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: -0.1em;
+}
+
+.tab.active {
+  color: #555 !important;
+  cursor: default;
+  background-color: #fff !important;
+  border: 1px solid #ddd !important;
+  border-bottom-color: transparent !important;
+}

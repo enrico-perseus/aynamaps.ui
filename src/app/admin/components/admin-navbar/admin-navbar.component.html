@@ -1,0 +1,13 @@
+<div class="navbar">
+    <a routerLink="/admin/dashboard" class="btn-home"><img src="/assets/images/login-logo.png" alt="" class="img-logo"></a>
+    <div class="dropdown">
+        <button class="dropbtn">{{currentUser.name}}<img src="{{basePath + '/' + currentUser.avatar}}" class="avatar"/>
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="clear"></div>
+        <div class="dropdown-content">
+            <a routerLink="/admin/my-account" >Profile <img src="{{basePath + '/' + currentUser.avatar}}" class="avatar right" style="margin-top:-3px;"/></a>
+            <a href="#">Logout <i class="fa fa-sign-out right" aria-hidden="true" style="margin-right:8px;"></i></a>
+        </div>
+    </div> 
+</div>

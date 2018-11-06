@@ -1,0 +1,91 @@
+<div id="main-panel">
+  <div class="col-md-12 full-width-colum-ber-buildingpag"  style="padding-left:0px !important;padding-right:0px !important;">
+    <div class="top-part" style="margin: 0px !important;">
+      <div class="left">
+        <a style="cursor:context-menu;">
+          <h5>Profile </h5>
+        </a>
+      </div>
+    </div>
+    <div class="all-page-content">
+      <div class="col-md-12 full-width-colum-ber-buildingpag new-user-page edit-page">
+        <div class="all-page-content edit-profile" id="UpdateProfileData">
+          <form name="EditProfile" (submit)="save()" novalidate>
+            <div class="col-md-6 form-horizontal">
+              <div class="row1">
+                  <div class="form-group">
+                      <label for="inputEmail3" class="col-md-3 control-label" style="padding-left: 0px">UID</label>
+                      <div class="col-md-9">
+                          <input type="text" class="form-control guid_input" id="inputEmail3" placeholder="UID" readonly [(ngModel)]="uid" name='ProfileGuid' />
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="inputPassword3" class="col-md-3 control-label" style="padding-left: 0px">Email</label>
+                      <div class="col-md-9">
+                          <input type="text" class="form-control guid_input"  placeholder="Email" [(ngModel)]="email" name="ProfileEmail" readonly="">
+                      </div>
+                  </div>
+                 
+                  <div class="form-group">
+                      <label for="inputPassword3" class="col-md-3 control-label" style="padding-left: 0px">Role</label>
+                      <div class="col-md-9">
+                          <div class="form-group-bottom">
+                              <input type="text" class="form-control guid_input"  placeholder="Role" [(ngModel)]="role" name="ProfileRole" readonly="">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="name" class="col-md-3 control-label" style="padding-left: 0px">Name</label>
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" name="name" [(ngModel)]="name" placeholder="Name">
+                      </div>
+                    </div>
+                
+                <div class="form-group">
+                  <label for="OldPassword" class="col-md-3 control-label" style="padding-left: 0px">Current Password</label>
+                  <div class="col-md-9">
+                    <input type="password" class="form-control" name="OldPassword" [(ngModel)]="OldPassword" placeholder="Current Password">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="NewPassword" class="col-md-3 control-label" style="padding-left: 0px">New Password</label>
+                  <div class="col-md-9">
+                    <input type="password" class="form-control" name="NewPassword" placeholder="New Password" [(ngModel)]="NewPassword">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="ConfirmPassword" class="col-md-3 control-label" style="padding-left: 0px">Repeat Password</label>
+                  <div class="col-md-9">
+                    <input type="Password" class="form-control" name="ConfirmPassword" placeholder="Confirm New Password" [(ngModel)]="ConfirmPassword">
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-6 form-horizontal">
+              <div class="row1">
+                <div class="form-group">
+                  <div class="col-md-12">
+                    <img class="profile-pic" src="{{basePath + '/' + currentUser.avatar}}" />
+                    <div class="new-useruploadimaga">
+                      <button class="upload-button" type="button" (click)="pickFile()">Upload Image</button>
+                      <button class="remove-button" type="button" (click)="removeAvatar()">Remove Image</button>
+                      <input type="file" class="hidden file-upload" accept="image/*" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group" style="margin-top: 72px;">
+                  <div class="col-md-9" style="max-width: 100% !important;">
+                    <button type="submit" class="btn btn-info save-btn" contenteditable="flush">Save</button>
+                    <a [routerLink]="['/customer/home', { outlets: { popup: ['users'] } }]" class="btn btn-info  cancel-btn">Cancel</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+</div>

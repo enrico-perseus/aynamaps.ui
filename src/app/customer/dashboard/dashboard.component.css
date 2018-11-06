@@ -1,0 +1,6 @@
+ #pie {
+  height: 200px;  
+}
+#pie * {
+  padding: 10px !important;
+}
